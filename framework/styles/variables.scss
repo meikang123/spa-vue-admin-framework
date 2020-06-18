@@ -1,0 +1,14 @@
+$--basiclayout-left-background-color: red !default; //左侧菜单主背景色
+
+// 左侧菜单
+$--sidermenu-menu-item-front-color: #fff !default; //菜单项正常字体颜色
+$--sidermenu-menu-item-hover-front-color: #fff !default; //hover菜单字体色
+$--sidermenu-menu-item-hover-background: rgba(232, 76, 125, .4) !default; //hover菜单字体色
+
+$--sidermenu-menu-item-active-front-color: #fff !default; //选中的菜单字体色
+$--sidermenu-menu-item-active-background: rgba(232, 76, 125, .4) !default;  //选中的菜单背景色 
+$--sidermenu-menu-item-active-hover-front-color: #fff !default; //选中菜单hover
+$--sidermenu-menu-item-active-hover-background: rgba(232, 76, 125, .4) !default;//选中菜单hover
+
+$--sidermenu-submenu-opened-front-color: #fff !default; //菜单打开的父菜单字体色
+$--sidermenu-width: 180px;
