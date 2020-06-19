@@ -12,34 +12,28 @@ export default {
       default: '',
     },
   },
-
   render(createElement, context) {
     const { icon, title } = context.props;
     const vnodes = [];
 
     if (icon) {
-      const elHtml = createElement('svg-icon', {
+      const svgIcon = createElement('svg-icon', {
         attrs: {
           'icon-class': icon,
         },
       });
-
-      vnodes.push(elHtml);
+      vnodes.push(svgIcon);
     }
 
-
     if (title) {
-      const elHtml = createElement('span', {
-        attrs: {
-          slot: title,
-          class: 'system-menu-title',
-        },
+      const itemTitle = createElement('span', {
+        slot: 'title',
       }, title);
-      vnodes.push(elHtml);
+
+      vnodes.push(itemTitle);
     }
 
     return vnodes;
   },
 };
-
 </script>
