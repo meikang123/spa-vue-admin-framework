@@ -4,7 +4,7 @@
   "description": "framework code project",
   "main": "index.js",
   "scripts": {
-    "clone": "mtl clone",
+    "clone": "giant clone",
     "docs": "jsdoc -R ./framework/README.md -c jsdoc-config.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,7 +30,7 @@
     "jsdoc-to-markdown": "^5.0.3"
   },
   "dependencies": {
-    "mtl-tools": "0.9.3",
+    "giant-tools": "0.9.0",
     "axios": "^0.18.1",
     "element-ui": "^2.13.1",
     "js-cookie": "2.2.1",
