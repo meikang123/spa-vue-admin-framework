@@ -4,5 +4,5 @@ const abc = {};
 
 export {
   TABLE_DIALOG_MIXIN,
-  abc,
+  abc
 };

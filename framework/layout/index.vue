@@ -59,40 +59,40 @@
 <script>
 import { mapState } from 'vuex';
 import {
-  AppMain, Navbar, Sidebar, TagsView,
+  AppMain, Navbar, Sidebar, TagsView
 } from './components';
 import ResizeMixin from './mixin/index';
 
 export default {
   name: 'Layout',
   components: {
-    AppMain, Navbar, Sidebar, TagsView,
+    AppMain, Navbar, Sidebar, TagsView
   },
   mixins: [ResizeMixin],
   data() {
     return {
       needTagsView: true,
-      fixedHeader: true,
+      fixedHeader: true
     };
   },
   computed: {
     ...mapState({
       sidebar: (state) => state.app.sidebar,
-      device: (state) => state.app.device,
+      device: (state) => state.app.device
     }),
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile',
+        mobile: this.device === 'mobile'
       };
-    },
+    }
   },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false });
-    },
-  },
+    }
+  }
 };
 </script>

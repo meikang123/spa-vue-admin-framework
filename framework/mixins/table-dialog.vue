@@ -10,28 +10,28 @@ export default {
   props: {
     dialogVisible: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isEdit: {
       type: Boolean,
-      default: false,
+      default: false
     },
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     fullTitle: {
       type: String,
-      default: '',
+      default: ''
     },
     row: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     name: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
 
   watch: {
@@ -54,7 +54,7 @@ export default {
           }
         }, 300);
       });
-    },
+    }
   },
 
   data() {
@@ -63,7 +63,7 @@ export default {
       formModel: Obj.deepClone(this.emptyFormModel),
       dialogTitle: '',
       submitIng: false,
-      uiInitIng: false,
+      uiInitIng: false
     };
   },
 
@@ -96,8 +96,8 @@ export default {
       if (this.isEdit && this.visible) {
         this.dialogTitle = `编辑${this.title}`;
       }
-    },
-  },
+    }
+  }
 
 };
 </script>

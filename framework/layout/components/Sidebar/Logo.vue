@@ -21,15 +21,15 @@ export default {
   props: {
     collapse: {
       type: Boolean,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      title: '测试平台',
-      logo,
+      title: '自动化测试平台',
+      logo
     };
-  },
+  }
 };
 </script>
 
@@ -48,8 +48,10 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #2b2f3a;
+  background: #304156;
   text-align: center;
+  border-bottom: 1px #6d6b6b solid;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
   overflow: hidden;
 
   & .sidebar-logo-link {

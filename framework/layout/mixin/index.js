@@ -9,7 +9,7 @@ export default {
       if (this.device === 'mobile' && this.sidebar.opened) {
         store.dispatch('app/closeSideBar', { withoutAnimation: false });
       }
-    },
+    }
   },
   beforeMount() {
     window.addEventListener('resize', this.$_ResizeHandle);
@@ -38,6 +38,6 @@ export default {
           store.dispatch('app/closeSideBar', { withoutAnimation: true });
         }
       }
-    },
-  },
+    }
+  }
 };
