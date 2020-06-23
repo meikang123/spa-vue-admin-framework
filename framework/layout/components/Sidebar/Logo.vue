@@ -46,12 +46,11 @@ export default {
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background: #304156;
+  height: 83px;
+  line-height: 83px;
+  background: #2f7771;
   text-align: center;
-  border-bottom: 1px #6d6b6b solid;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+
   overflow: hidden;
 
   & .sidebar-logo-link {
