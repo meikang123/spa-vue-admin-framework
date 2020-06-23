@@ -152,7 +152,7 @@ const mtlLoadResources = (src, callback, noLoad) => {
   }
 };
 
-export {
+export default {
   openNewWindow,
   toLogin,
   toApp,

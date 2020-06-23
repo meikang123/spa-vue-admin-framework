@@ -8,7 +8,7 @@ const path = require('path');
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: '@typescript-eslint/parser'
   },
   env: {
     browser: true,

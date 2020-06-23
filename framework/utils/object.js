@@ -51,29 +51,8 @@ const deepClone = (object) => {
   return targetObj;
 };
 
-/**
- *
- * @description object 转数组
- * @todo 可能不需要设置为 formdata, 只需要设置contentType即可
- * @param {object} obj - 原始对象
- * @returns {object} formdata
- */
-const objectToFormData = (obj) => {
-  const formData = new FormData();
-  // 递归出口
-  if (typeof obj !== 'object' || !obj) {
-    return obj;
-  }
-
-  Object.keys(obj).forEach((key) => {
-    formData.append(key, objectToFormData(obj[key]));
-  });
-
-  return formData;
-};
 
 export default {
   get,
   deepClone,
-  objectToFormData,
 };
