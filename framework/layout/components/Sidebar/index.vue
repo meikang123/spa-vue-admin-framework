@@ -1,6 +1,6 @@
 <template>
   <div :class="{'has-logo':showLogo}">
-    <logo v-if="showLogo" :collapse="isCollapse" />
+    <slot name="logo" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
@@ -21,15 +21,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import variables from '@/styles/variables.scss';
-import Logo from './Logo';
 import SidebarItem from './SidebarItem';
 
 export default {
-  components: { SidebarItem, Logo },
+  components: { SidebarItem },
   computed: {
     ...mapGetters([
       'routes',
-      'sidebar',
+      'sidebar'
     ]),
     activeMenu() {
       const route = this.$route;
@@ -48,7 +47,7 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened;
-    },
-  },
+    }
+  }
 };
 </script>

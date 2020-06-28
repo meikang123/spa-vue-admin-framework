@@ -5,35 +5,47 @@ export default {
   props: {
     icon: {
       type: String,
-      default: '',
+      default: ''
     },
     title: {
       type: String,
-      default: '',
+      default: ''
     },
+    elIcon: {
+      type: String,
+      default: ''
+    }
   },
   render(createElement, context) {
-    const { icon, title } = context.props;
+    const { icon, title, elIcon } = context.props;
+    
     const vnodes = [];
 
     if (icon) {
       const svgIcon = createElement('svg-icon', {
         attrs: {
-          'icon-class': icon,
-        },
+          'icon-class': icon
+        }
       });
       vnodes.push(svgIcon);
+    } else if (elIcon) {
+      const elIconEL = createElement('i', {
+        attrs: {
+          class: elIcon
+        }
+      });
+      vnodes.push(elIconEL);
     }
 
     if (title) {
       const itemTitle = createElement('span', {
-        slot: 'title',
+        slot: 'title'
       }, title);
 
       vnodes.push(itemTitle);
     }
 
     return vnodes;
-  },
+  }
 };
 </script>

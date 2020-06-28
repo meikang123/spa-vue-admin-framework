@@ -26,7 +26,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: path.join(__dirname, './build/devconfig.js'),
+        config: path.join(__dirname, './project/build/devconfig.js'),
       },
     },
   },
