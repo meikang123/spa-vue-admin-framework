@@ -1,9 +1,8 @@
 <template>
-  <div :class="classObj" class="app-wrapper giant-layout">
+  <div :class="classObj" class="app-wrapper gt-layout">
     <div v-if="device==='mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container">
+    <sidebar class="sidebar-container gt-layout__sidebar">
       <template slot="logo">
-        fdsafdsa
         <slot name="logo" />
       </template>
     </sidebar>
