@@ -1,10 +1,10 @@
 import { MessageBox } from 'element-ui';
 
-const MTLConfirm = (message, success, cancel) => {
+const GtConfirm = (message, success, cancel) => {
   MessageBox.confirm(`${message}`, '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning',
+    type: 'warning'
   }).then(() => {
     success();
   }).catch(() => {
@@ -17,6 +17,6 @@ const MTLConfirm = (message, success, cancel) => {
 const other = {};
 
 export {
-  MTLConfirm,
-  other,
+  GtConfirm,
+  other
 };

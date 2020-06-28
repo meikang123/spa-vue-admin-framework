@@ -1,7 +1,7 @@
-import { MTLConfirm } from './dialogs';
+import { GtConfirm } from './dialogs';
 
 const abc = {};
 export {
-  MTLConfirm,
-  abc,
+  GtConfirm,
+  abc
 };
