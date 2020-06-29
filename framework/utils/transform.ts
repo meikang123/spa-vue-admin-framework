@@ -3,20 +3,15 @@
  * @description 根据时间戳/Date实例转换成格化字符串
  * @param date 代表时间的Unix时间戳，时间对象或字符串形式的Unix时间戳
  * @param format 格式化形式参考 http://momentjs.cn/docs/ 年份、月份、日期的令牌 eg. YYYY-MM-DD HH:mm:ss
- * @param UTC https://baike.baidu.com/item/%E6%97%B6%E5%8C%BA/491122?fr=aladdin 24时区
  */
-const formatDate = (date: any, format: string, UTC?: number) => {
+const formatDate = (date: any, format: string) => {
   let result = '';
   let tempDate = null;
 
-  if (typeof Date === 'object') {
+  if (typeof date === 'object') {
     tempDate = date;
   } else {
     tempDate = new Date(date);
-  }
-
-  if (UTC) {
-    tempDate.setUTCDate(UTC);
   }
 
   if (/(Y+)/.test(format)) {
@@ -28,20 +23,19 @@ const formatDate = (date: any, format: string, UTC?: number) => {
   const hours = tempDate.getHours();
   const minutes = tempDate.getMinutes();
   const seconds = tempDate.getSeconds();
-
   const tokens = {
     'M+': `${month < 10 ? `0${month}` : month}`,
     'D+': `${day < 10 ? `0${day}` : day}`,
     'H+': `${hours < 10 ? `0${hours}` : hours}`,
     'm+': `${minutes < 10 ? `0${minutes}` : minutes}`,
-    's+': `${seconds < 10 ? `0${seconds}` : seconds}`,
+    's+': `${seconds < 10 ? `0${seconds}` : seconds}`
   };
 
   interface IToken {
     [key: string]: any
   }
 
-  Object.keys(tokens).forEach((key) => {
+  Object.keys(tokens).forEach(key => {
     if (new RegExp(`(${key})`).test(format)) {
       result = result.replace(RegExp.$1, (<IToken>tokens)[key]);
     }
@@ -64,7 +58,7 @@ const objectToFormData = (obj: any) => {
     return obj;
   }
 
-  Object.keys(obj).forEach((key) => {
+  Object.keys(obj).forEach(key => {
     formData.append(key, objectToFormData(obj[key]));
   });
 
@@ -74,5 +68,5 @@ const objectToFormData = (obj: any) => {
 
 export default {
   formatDate,
-  objectToFormData,
+  objectToFormData
 };
