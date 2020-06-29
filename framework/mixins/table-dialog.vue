@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { Obj } from '@/framework/utils';
+import { Obj } from '@framework/utils';
 
 export default {
 

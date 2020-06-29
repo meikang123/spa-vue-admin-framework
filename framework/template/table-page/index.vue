@@ -65,6 +65,7 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+
   .search-form{
     width: 100%;
     .opt-btns-wrap{
@@ -76,6 +77,10 @@ export default {
   .search-result{
     flex: 1;
     overflow: hidden;
+  }
+
+  .gt-pagination{
+    margin-top: 20px;
   }
 
   .dialog-footer{

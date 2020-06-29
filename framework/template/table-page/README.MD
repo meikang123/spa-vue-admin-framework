@@ -12,10 +12,10 @@ demo:
     :reqLoadingText="reqLoadingText"
     :reqLoading="reqLoading">
     <template slot="top-block-content">
-      <el-form inline size="small" class="search-form" :model="formData" refs="searchForm">
+      <el-form inline size="small" class="search-form" :model="searchData" refs="searchForm">
         <el-form-item prop="resourceName">
           <!-- form-items -->
-          <el-input placeholder="请输入资源名称" v-model="formData.resourceName">
+          <el-input placeholder="请输入资源名称" v-model="searchData.resourceName">
               <el-button type="info" slot="append" icon="el-icon-search" @click="search">搜索</el-button>
           </el-input>
           </el-form-item>
@@ -47,7 +47,7 @@ export default {
   mixins: [TablePageMIXIN],
   data() {
     return {
-      formData: {
+      searchData: {
         resourceName: '',
       },
     };

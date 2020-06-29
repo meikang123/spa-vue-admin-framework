@@ -40,9 +40,8 @@ export default {
       SearchService.getList(params).then(resource => {
         const { data: { data, page: server_page, page_size, total } } = resource;
         if (data && data instanceof Array) {
-          console.log(data, 'result');
           this.resultData.list = data.map((record, index) => ({
-            tableIndex: size + index + 1,
+            tableIndex: index + 1,
             ...record
           }));
           if (server_page) {
