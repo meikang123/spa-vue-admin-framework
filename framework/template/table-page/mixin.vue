@@ -59,6 +59,11 @@ export default {
       });
     },
 
+    reset() {
+      this.searchData = {};
+      this.search();
+    },
+
     changePage(nextCurrent) {
       this.pagination.current = nextCurrent;
       this.search(this.pagination);
@@ -95,6 +100,11 @@ export default {
 
   destroyed() {
     window.removeEventListener('resize', this.documentResizeHandler);
+  },
+
+  activated() {
+    this.search();
   }
+
 };
 </script>
