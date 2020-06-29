@@ -77,6 +77,11 @@ export default {
   .search-result{
     flex: 1;
     overflow: hidden;
+    .search-result__toppage{
+      display: flex;
+      flex-direction: row-reverse;
+      margin-bottom: 15px;
+    }
   }
 
   .gt-pagination{
