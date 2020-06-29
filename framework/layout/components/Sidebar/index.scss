@@ -4,6 +4,10 @@
 
 }
 
+.gt-layout__sidebar .el-menu--collapse .el-submenu [class^=el-icon-]{
+    margin-left: 18px;
+}
+
 .gt-layout__sidebar .el-submenu__title i{
     color: unset;
 }
