@@ -61,7 +61,6 @@ export default {
 
     reset() {
       this.searchData = {};
-      this.search();
     },
 
     changePage(nextCurrent) {
@@ -77,7 +76,7 @@ export default {
     setTableHeight() {
       const el = this.$refs.tablePage.$el.querySelector('.search-result');
       const { height } = el.getBoundingClientRect();
-      this.tableHeight = height - 65;
+      this.tableHeight = height - 75;
     },
 
     documentResizeHandler() {
@@ -104,6 +103,15 @@ export default {
 
   activated() {
     this.search();
+  },
+
+  watch: {
+    searchData: {
+      handler() {
+        this.search();
+      },
+      deep: true
+    }
   }
 
 };

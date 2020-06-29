@@ -5,6 +5,7 @@
     </div>
     <slot name="middle-block-content" />
     <div class="search-result" ref="search-result" v-loading.sync="reqLoading" :element-loading-text="reqLoadingText || '数据加载中'">
+      <div style="height: 10px;" />
       <slot name="table" />
       <gt-pagination
         v-if="pagination"
