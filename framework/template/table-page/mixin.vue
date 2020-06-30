@@ -11,7 +11,7 @@ export default {
         list: []
       },
       pagination: {
-        current: 0,
+        current: 1,
         size: 20,
         total: 0
       },
@@ -33,7 +33,7 @@ export default {
       const { current: page, size } = paginationParams;
       const params = {
         ...this.searchData,
-        page: page + 1,
+        page,
         page_size: size
       };
 
@@ -46,7 +46,7 @@ export default {
           }));
           if (server_page) {
             this.pagination = {
-              current: server_page - 1,
+              current: server_page,
               size: page_size,
               total
             };
