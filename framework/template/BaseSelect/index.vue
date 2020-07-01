@@ -45,7 +45,6 @@ export default {
     };
   },
   mounted() {},
-  computed() {},
   watch: {
     selectedValue(value) {
       this.$nextTick(() => {
