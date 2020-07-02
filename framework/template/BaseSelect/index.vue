@@ -1,9 +1,29 @@
 <template>
-  <el-select :placeholder="placeholderVal" v-model="value" :loading="loading" :filter-method="remoteSearch" @focus="remoteSearch()" @change="handleChange" autocomplete clearable remote filterable>
-    <el-option :label="item.label" :value="item.id" v-for="(item, index) in options" :key="index" />
-  </el-select>
+  <div>
+    <el-select v-if="dictName" :placeholder="placeholderVal" v-model="value" :loading="loading" @change="handleChange" clearable filterable>
+      <el-option :label="item.label" :value="item.id" v-for="(item, index) in _optionDict" :key="index" />
+    </el-select>
+    <el-select v-if="!dictName && requestName && !remote" :placeholder="placeholderVal" v-model="value" :loading="loading" @change="handleChange" clearable filterable>
+      <el-option :label="item.label" :value="item.id" v-for="(item, index) in options" :key="index" />
+    </el-select>
+    <el-select
+      v-if="!dictName && requestName && remote"
+      :placeholder="placeholderVal"
+      v-model="value"
+      :loading="loading"
+      @change="handleChange"
+      :filter-method="remoteSearch"
+      @focus="remoteSearch()"
+      clearable
+      remote
+      filterable
+    >
+      <el-option :label="item.label" :value="item.id" v-for="(item, index) in options" :key="index" />
+    </el-select>
+  </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 import { api } from '@/api/index';
 import { Obj } from '@framework/utils';
 
@@ -13,8 +33,12 @@ export default {
     event: 'changeSelected'
   },
   props: {
-    selectedValue: {
-      type: String | Number,
+    remote: {
+      type: Boolean,
+      default: false
+    },
+    dictName: {
+      type: String,
       default: ''
     },
     requestName: {
@@ -44,7 +68,15 @@ export default {
       placeholder: ''
     };
   },
-  mounted() {},
+  mounted() {
+    this.init();
+  },
+  computed: {
+    ...mapGetters(['dict']),
+    _optionDict() {
+      return this.dict[this.dictName] || [];
+    }
+  },
   watch: {
     selectedValue(value) {
       this.$nextTick(() => {
@@ -58,16 +90,19 @@ export default {
     }
   },
   methods: {
+    init() {
+      !this.remote && (this.dictName ? (this.value = this.selectedValue) : this.remoteSearch());
+    },
     remoteSearch(keyword) {
-      if (this.value) {
-        return;
+      if (this.value || !api[this.requestName]) {
+        return false;
       }
       this.loading = true;
       api[this.requestName].getList({ keyword, page: 1, page_size: 30 }).then(res => {
         this.loading = false;
         if (res && res.code === 0) {
           this.options = (res.data.data || []).map(item => ({ id: item.id, label: `${item.name}` }));
-          console.log(this.options, '------this.options');
+          this.value = this.selectedValue;
         }
       });
     },
