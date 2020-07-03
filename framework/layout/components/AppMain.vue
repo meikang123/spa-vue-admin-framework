@@ -1,10 +1,8 @@
 <template>
   <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="cachedViews">
-        <router-view :key="key" />
-      </keep-alive>
-    </transition>
+    <keep-alive :include="cachedViews">
+      <router-view :key="key" />
+    </keep-alive>
   </section>
 </template>
 <script>
@@ -22,31 +20,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .app-main {
-    /* 50= navbar  50  */
-    min-height: calc(100vh);
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
+.app-main {
+  /* 50= navbar  50  */
+  min-height: calc(100vh);
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
 
+.fixed-header + .app-main {
+  padding-top: 50px;
+}
+
+.hasTagsView {
   .fixed-header + .app-main {
-    padding-top: 50px;
+    padding-top: 84px;
   }
-
-  .hasTagsView {
-    .fixed-header + .app-main {
-      padding-top: 84px;
-    }
-  }
+}
 </style>
 
 <style lang="scss">
-  // fix css style bug in open el-dialog
-  .el-popup-parent--hidden {
-    .fixed-header {
-      padding-right: 15px;
-    }
+// fix css style bug in open el-dialog
+.el-popup-parent--hidden {
+  .fixed-header {
+    padding-right: 15px;
   }
+}
 </style>
