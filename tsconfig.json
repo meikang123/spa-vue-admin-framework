@@ -3,7 +3,8 @@
 		"target": "es5",
 		"strict": true,
 		"module": "es2015",
-		"moduleResolution": "node"
+    "moduleResolution": "node",
+    "jsx":"preserve"
 	},
 	"include": [
 		"framework/**/*.js",
