@@ -1,7 +1,7 @@
-import { GtConfirm } from './dialogs';
+import { GtFormItem } from './form';
 
 const abc = {};
 export {
-  GtConfirm,
+  GtFormItem,
   abc
 };

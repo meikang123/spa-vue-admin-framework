@@ -4,11 +4,13 @@
 		"strict": true,
 		"module": "es2015",
     "moduleResolution": "node",
-    "jsx":"preserve"
+    "lib": ["es6", "dom"],
+    "jsx":"preserve",
+    "typeRoots": ["./node_modules/@types", "./framework/types"]
 	},
 	"include": [
 		"framework/**/*.js",
-		"framework/**/*.ts"
+		"framework/**/*.ts", "framework/ui/form/src/gt-form-item.tsx"
 	],
 	"exclude": [
 		"/node_modules"
