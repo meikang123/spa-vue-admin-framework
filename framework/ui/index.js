@@ -1,5 +1,5 @@
 import { GtFormItem } from './form';
-import { GtSelect } from './select';
+import GtSelect from './select';
 
 export {
   GtFormItem,
@@ -11,7 +11,7 @@ const components = [
   GtSelect
 ];
 
-
+console.log(GtSelect, '----gtselect');
 const install = Vue => {
   components.forEach(comp => {
     Vue.component(comp.name, comp);

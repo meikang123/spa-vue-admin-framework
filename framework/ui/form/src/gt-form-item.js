@@ -38,17 +38,17 @@ const GtFormItem = {
     // return (
     //   <div {...inputAttributes} style={{ color: 'red' }} >fdsaf</div>
     // );
-    const { $attrs: { label, prop, rules, type } } = this;
+    const { $attrs: { label, prop, rules, type, placeholder, typeOptions } } = this;
     const { $parent: { $attrs: { mode = 'edit' } } } = this;
     
     const ItemContentMap = {
       input: {
         show: <span>{this.itemValue}</span>,
-        edit: <el-input v-model={this.itemValue} />
+        edit: <el-input v-model={this.itemValue} placeholder={placeholder}/>
       },
       select: {
         show: <span>select</span>,
-        edit: <gt-select />
+        edit: <gt-select v-model={this.itemValue} placeholder={placeholder}/>
       }
     };
     

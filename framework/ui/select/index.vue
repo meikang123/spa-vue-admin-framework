@@ -28,6 +28,7 @@ import { api } from '@/api/index';
 import { Obj } from '@framework/utils';
 
 export default {
+  name: 'gt-select',
   model: {
     prop: 'selectedValue',
     event: 'changeSelected'
@@ -36,6 +37,10 @@ export default {
     remote: {
       type: Boolean,
       default: false
+    },
+    remoteService: {
+      type: Function,
+      default: null
     },
     dictName: {
       type: Array,
@@ -101,7 +106,15 @@ export default {
         return false;
       }
       this.loading = true;
-      api[this.requestName].getList({ keyword, page: 1, page_size: 30 }).then(res => {
+
+      // TODO 需要merge外部参数用于做联动
+      const params = {
+        keyword,
+        page: 1,
+        page_size: 30
+      };
+
+      this.remoteService(params).then(res => {
         this.loading = false;
         if (res && res.code === 0) {
           this.options = (res.data.data || []).map(item => ({ id: item.id, label: `${item.name}` }));
