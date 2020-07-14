@@ -1,5 +1,5 @@
 ## 07-02
-
+BY 沈展平
 ### gt-select 方案设计及实现
 
 解决问题
@@ -22,3 +22,4 @@
 --配置模式
 
 1. 在 gt-select 使用时 dict-name 传入配置中使用的字段名，placeholder-val 传入 placeholder，v-model 中定义使用的值
+

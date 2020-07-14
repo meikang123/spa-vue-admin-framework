@@ -45,6 +45,10 @@ const GtFormItem = {
       input: {
         show: <span>{this.itemValue}</span>,
         edit: <el-input v-model={this.itemValue} />
+      },
+      select: {
+        show: <span>select</span>,
+        edit: <gt-select />
       }
     };
     

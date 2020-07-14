@@ -1,13 +1,14 @@
 import { GtFormItem } from './form';
+import { GtSelect } from './select';
 
-const abc = {};
 export {
   GtFormItem,
-  abc
+  GtSelect
 };
 
 const components = [
-  GtFormItem
+  GtFormItem,
+  GtSelect
 ];
 
 

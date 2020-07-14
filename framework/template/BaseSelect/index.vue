@@ -39,9 +39,7 @@ export default {
     },
     dictName: {
       type: Array,
-      default: () => {
-        return [];
-      }
+      default: () => []
     },
     requestName: {
       type: String,

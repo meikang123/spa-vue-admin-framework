@@ -7,13 +7,14 @@
 const path = require('path');
 
 module.exports = {
-  root: true,
   parserOptions: {
     parser: '@typescript-eslint/parser'
   },
   env: {
     browser: true,
+    node: true,
   },
+  
   // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
   // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
   extends: ['plugin:vue/strongly-recommended', 'airbnb-base'],
@@ -70,7 +71,6 @@ module.exports = {
     'max-len': 'off',
     'no-use-before-define': 'off',
     'no-underscore-dangle': 'off',
-    'no-bitwise': 'off',
     'no-unused-expressions': ['error', { 'allowShortCircuit': true }],
     'comma-dangle': ['error', 'never'],
     'no-trailing-spaces': ['error', {'skipBlankLines': true}],
@@ -85,6 +85,8 @@ module.exports = {
         allowFirstLine: false,
       },
     }],
+    'vue/require-prop-types': 'off',
+    'vue/name-property-casing': 'off',
     'vue/singleline-html-element-content-newline': 'off',
   },
 };
