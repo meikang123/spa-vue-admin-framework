@@ -2,7 +2,7 @@ project/
 node_modules/
 settings.json
 out/
-
+package-lock.json
 .DS_Store
 /dist
  
