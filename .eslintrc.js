@@ -70,6 +70,7 @@ module.exports = {
     'max-len': 'off',
     'no-use-before-define': 'off',
     'no-underscore-dangle': 'off',
+    'no-bitwise': 'off',
     'no-unused-expressions': ['error', { 'allowShortCircuit': true }],
     'comma-dangle': ['error', 'never'],
     'no-trailing-spaces': ['error', {'skipBlankLines': true}],

@@ -14,7 +14,6 @@
 const get = (object, propertyPath) => {
   let srcObj = object;
   const paths = propertyPath.split('.');
-
   for (let index = 0; index < paths.length; index += 1) {
     const key = paths[index];
     if (srcObj[key]) {
@@ -31,7 +30,7 @@ const get = (object, propertyPath) => {
  * @param {object} object - 被拷贝的对象
  * @return {object} 新对象
  */
-const deepClone = (object) => {
+const deepClone = object => {
   const obj = object;
   let targetObj = {};
   // 递归出口
@@ -44,7 +43,7 @@ const deepClone = (object) => {
     targetObj = [];
   }
 
-  Object.keys(obj).forEach((key) => {
+  Object.keys(obj).forEach(key => {
     targetObj[key] = deepClone(obj[key]);
   });
 
@@ -54,5 +53,5 @@ const deepClone = (object) => {
 
 export default {
   get,
-  deepClone,
+  deepClone
 };
