@@ -1,4 +1,4 @@
-import { GtConfirm } from './dialogs';
+import { GtConfirm } from './dialog';
 
 const abc = {};
 export {

@@ -4,17 +4,17 @@
 import {
   BasicLayout,
   SiderMenu,
-  Header,
+  Header
 } from './layout';
 
 const components = [
   BasicLayout,
   SiderMenu,
-  Header,
+  Header
 ];
 
 
-const install = (Vue) => {
+const install = Vue => {
   for (let index = 0; index < components.length; index++) {
     const comp = components[index];
     Vue.component(comp.name, comp);
@@ -23,5 +23,5 @@ const install = (Vue) => {
 
 
 export default {
-  install,
+  install
 };
