@@ -1,4 +1,4 @@
-import { GtFormItem } from './form';
+import GtFormItem from './src/gt-form-item';
 
 const abc = {};
 export {
