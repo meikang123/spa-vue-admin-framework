@@ -1,4 +1,6 @@
+
 const GtFormItem = {
+  parentForm: null,
   name: 'gt-form-item',
   model: {
     prop: 'gtFormItemValue',
@@ -19,6 +21,7 @@ const GtFormItem = {
       this.itemValue = value;
     }
   },
+
   render() {
     // const inputAttributes = {
     //   class: 'input-field', // class definition
@@ -35,9 +38,19 @@ const GtFormItem = {
     // return (
     //   <div {...inputAttributes} style={{ color: 'red' }} >fdsaf</div>
     // );
+    const findParentForm = parent => {
+      if (parent._vnode.tag === 'form') {
+        return parent;
+      }
+      return findParentForm(parent.$parent);
+      // this.parentForm = this.findParentForm();
+    };
     const { $attrs: { label, prop, rules, type, placeholder, 'type-options': typeOptions = {} } } = this;
     // 从父组件中取form ,待优化递归找到最近的一个form的 mode
-    const { $parent: { $attrs: { 'is-detail': isDetail } } } = this;
+    // const { $parent: { $attrs: { 'is-detail': isDetail } } } = this;
+    const parentForm = findParentForm(this.$parent);
+    const { $attrs: { 'is-detail': isDetail } } = parentForm;
+    
     const { customShow } = this.$slots;
     // vue jsx 不支持函数引入所以一堆 case
     const itemIsDetail = isDetail;
