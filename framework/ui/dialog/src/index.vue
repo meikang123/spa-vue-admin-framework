@@ -5,14 +5,14 @@
     :visible="visible"
     :top="top"
     :before-close="handleClose"
-    @open="this.$emit('open')"
-    @opened="this.$emit('opened')"
-    @close="this.$emit('close')"
-    @closed="this.$emit('closed')"
+    @open="$emit('open')"
+    @opened="$emit('opened')"
+    @close="$emit('close')"
+    @closed="$emit('closed')"
   >
     <div slot="title" class="gt-dialog__title">
       <template v-if="title">{{ title }}</template>
-      <solt v-else name="title" />
+      <slot v-else name="title" />
     </div>
     <div v-loading="isLoading" class="gt-dialog__body" :style="{ maxHeight: _maxHeight }">
       <slot />
@@ -123,40 +123,40 @@ export default {
 <style lang="scss">
 $primary: #409eff;
 .gt-dialog {
-    &.gt-dialog--theme {
-        /deep/ .el-dialog__header {
-            padding: 0 20px;
-        }
-        .gt-dialog__title {
-            line-height: 42px;
-        }
+  &.gt-dialog--theme {
+    /deep/ .el-dialog__header {
+      padding: 0 20px;
     }
-    &.gt-dialog--primary {
-        /deep/ .el-dialog__header {
-            background-color: #F8F8F8;
-            border-bottom: 1px solid #eee;
-        }
-        /deep/ .el-dialog__headerbtn {
-            top: 11px;
-            right: 11px;
-            .el-dialog__close {
-                color: #333;
-                &:hover {
-                    color: $primary;
-                }
-            }
-        }
-        /deep/ .el-dialog__footer {
-            padding: 15px 20px;
-        }
+    .gt-dialog__title {
+      line-height: 42px;
     }
-     /deep/ .el-dialog__body {
-        padding: 0;
+  }
+  &.gt-dialog--primary {
+    /deep/ .el-dialog__header {
+      background-color: #f8f8f8;
+      border-bottom: 1px solid #eee;
     }
-    .gt-dialog__body {
-        padding: 20px;
-        min-height: 100px;
-        overflow-y: auto;
+    /deep/ .el-dialog__headerbtn {
+      top: 11px;
+      right: 11px;
+      .el-dialog__close {
+        color: #333;
+        &:hover {
+          color: $primary;
+        }
+      }
     }
+    /deep/ .el-dialog__footer {
+      padding: 15px 20px;
+    }
+  }
+  /deep/ .el-dialog__body {
+    padding: 0;
+  }
+  .gt-dialog__body {
+    padding: 20px;
+    min-height: 100px;
+    overflow-y: auto;
+  }
 }
 </style>
