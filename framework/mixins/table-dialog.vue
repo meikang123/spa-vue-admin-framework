@@ -12,10 +12,6 @@ export default {
       type: Boolean,
       default: false
     },
-    isEdit: {
-      type: Boolean,
-      default: false
-    },
     title: {
       type: String,
       default: ''
@@ -25,31 +21,37 @@ export default {
       default: ''
     },
     row: {
-      type: Object,
+      type: [Object],
+      default: () => ({})
+    },
+    success: {
+      type: Function,
+      required: false,
       default: () => {}
     },
-    name: {
+    mode: {
       type: String,
-      default: ''
+      default: 'ADD'
     }
+  
   },
 
   watch: {
     dialogVisible(value) {
-      const { emptyFormModel } = this;
+      const { initFormModel = {} } = this;
       this.visible = value;
       this.setTitle();
       this.$nextTick(() => {
         const { form } = this.$refs;
         form.clearValidate();
         setTimeout(() => {
+          // 关闭弹窗即做数据还原
           if (!this.visible) {
-            this.formModel = Obj.deepClone(emptyFormModel);
-          }
-          if (this.isEdit && this.visible) {
-            this.setFormModel();
-          }
-          if (this.visible) {
+            this.formModel = Obj.deepClone(initFormModel);
+          } else {
+            if (this.row) {
+              this.setFormModel();
+            }
             this.initDialogUI();
           }
         }, 300);
@@ -60,7 +62,8 @@ export default {
   data() {
     return {
       visible: this.dialogVisible,
-      formModel: Obj.deepClone(this.emptyFormModel),
+      initFormModel: {},
+      formModel: Obj.deepClone(this.initFormModel) || {},
       dialogTitle: '',
       submitIng: false,
       uiInitIng: false
@@ -82,6 +85,7 @@ export default {
     },
 
     doCancel() {
+      this.$emit('update:dialogVisible', false);
       this.$emit('cancel');
     },
 

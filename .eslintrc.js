@@ -67,15 +67,10 @@ module.exports = {
     'object-shorthand': ['error', 'always'], // 使用简写 例: foo: { x: x }  ==>  foo: { x }
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }], // 除了 for 循环 其他地方禁止使用 一元运算 (++ / --)
     // allow debugger during development
-    'max-len': 'off',
-    'no-use-before-define': 'off',
-    'no-underscore-dangle': 'off',
     'no-unused-expressions': ['error', { 'allowShortCircuit': true }],
     'comma-dangle': ['error', 'never'],
     'no-trailing-spaces': ['error', {'skipBlankLines': true}],
     'object-curly-newline': ['error', {'consistent': true }],
-    'no-param-reassign': 'off',
-    'consistent-return': 'off',
     // https://github.com/vuejs/eslint-plugin-vue/blob/v6.2.2/docs/rules/README.md
     'vue/max-attributes-per-line': ['error', {
       singleline: 8,
@@ -86,6 +81,12 @@ module.exports = {
     }],
     'vue/require-prop-types': 'off',
     'vue/name-property-casing': 'off',
+    'no-param-reassign': 'off',
+    'consistent-return': 'off',
+    "no-case-declarations": 'off',
+    'max-len': 'off',
+    'no-use-before-define': 'off',
+    'no-underscore-dangle': 'off',
     'vue/singleline-html-element-content-newline': 'off',
   },
 };

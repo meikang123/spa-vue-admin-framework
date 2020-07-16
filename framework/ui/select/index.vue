@@ -1,13 +1,6 @@
 <template>
   <div>
-    <el-select v-if="dictName.length !== 0" :placeholder="placeholder" v-model="value" :loading="loading" @change="handleChange" clearable filterable>
-      <el-option :label="item.label" :value="item.id" v-for="(item, index) in dictName" :key="index" />
-    </el-select>
-    <el-select v-if="dictName.length === 0 && requestName && !remote" :placeholder="placeholder" v-model="value" :loading="loading" @change="handleChange" clearable filterable>
-      <el-option :label="item.label" :value="item.id" v-for="(item, index) in options" :key="index" />
-    </el-select>
     <el-select
-      v-if="dictName.length === 0 && requestName && remote"
       :placeholder="placeholder"
       v-model="value"
       :loading="loading"
@@ -15,48 +8,44 @@
       :filter-method="remoteSearch"
       @focus="remoteSearch()"
       clearable
-      remote
+      :remote="!!remoteService"
       filterable
     >
-      <el-option :label="item.label" :value="item.id" v-for="(item, index) in options" :key="index" />
+      <el-option :label="item.label" :value="item.value" v-for="(item) in options" :key="item.value" />
     </el-select>
   </div>
 </template>
 <script>
 // import { mapGetters } from 'vuex';
-import { api } from '@/api/index';
 import { Obj } from '@framework/utils';
 
 export default {
   name: 'gt-select',
   model: {
-    prop: 'selectedValue',
+    prop: 'defaultValue',
     event: 'changeSelected'
   },
   props: {
-    remote: {
-      type: Boolean,
-      default: false
-    },
-    remoteService: {
-      type: Function,
-      default: null
-    },
-    dictName: {
-      type: Array,
-      default: () => []
-    },
-    requestName: {
-      type: String,
+    defaultValue: { // v-model
+      type: [String, Number],
       default: ''
     },
     placeholder: {
       type: String,
       default: '请选择内容'
     },
-    selectedValue: {
-      type: [String, Number],
-      default: ''
+    // type-options gt-form-item
+    resResolve: {
+      type: [Function, Boolean],
+      default: false
+    },
+    paramsResolve: {
+      type: [Function, Boolean],
+      default: false
+    },
+    remoteService: {
+      type: [Function, Boolean],
+      default: false
     },
     defaultOptions: {
       type: Array,
@@ -73,13 +62,13 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    // this.init();
   },
   computed: {
     // ...mapGetters(['dict'])
   },
   watch: {
-    selectedValue(value) {
+    defaultValue(value) {
       this.$nextTick(() => {
         this.value = value;
       });
@@ -91,34 +80,32 @@ export default {
     }
   },
   methods: {
-    init() {
-      // !this.remote && (this.dictName ? (this.value = this.selectedValue) : this.remoteSearch());
-      if (!this.remote) {
-        if (this.dictName.length !== 0) {
-          this.value = this.selectedValue;
-        } else {
-          this.remoteSearch();
-        }
-      }
-    },
     remoteSearch(keyword) {
-      if (this.value || !api[this.requestName]) {
-        return false;
+      if (this.value || !this.remoteService) {
+        return;
       }
       this.loading = true;
 
       // TODO 需要merge外部参数用于做联动
-      const params = {
+      let params = {
         keyword,
         page: 1,
         page_size: 30
       };
+      if (this.paramsResolve) {
+        params = this.paramsResolve(params);
+      }
 
       this.remoteService(params).then(res => {
         this.loading = false;
         if (res && res.code === 0) {
-          this.options = (res.data.data || []).map(item => ({ id: item.id, label: `${item.name}` }));
-          this.value = this.selectedValue;
+          this.options = (res.data.data || []).map(item => {
+            if (this.resResolve) {
+              return this.resResolve(res.data);
+            }
+            return { value: item.id, label: `${item.name}` };
+          });
+          this.value = this.defaultValue;
         }
       });
     },

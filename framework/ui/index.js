@@ -10,8 +10,6 @@ const components = [
   GtFormItem,
   GtSelect
 ];
-
-console.log(GtSelect, '----gtselect');
 const install = Vue => {
   components.forEach(comp => {
     Vue.component(comp.name, comp);
