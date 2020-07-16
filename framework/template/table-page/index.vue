@@ -93,12 +93,6 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    .dialog-footer_item{
-      margin-right: 8px;
-    }
-    .dialog-footer_item:last-child{
-      margin-right: 0;
-    }
   }
 }
 </style>

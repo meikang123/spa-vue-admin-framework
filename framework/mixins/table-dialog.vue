@@ -12,6 +12,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isDetail: {
+      type: Boolean,
+      default: false
+    },
     title: {
       type: String,
       default: ''
@@ -28,12 +32,7 @@ export default {
       type: Function,
       required: false,
       default: () => {}
-    },
-    mode: {
-      type: String,
-      default: 'ADD'
     }
-  
   },
 
   watch: {
@@ -90,16 +89,22 @@ export default {
     },
 
     setTitle() {
+      let title = '';
       if (this.fullTitle) {
-        this.dialogTitle = this.fullTitle;
+        title = this.fullTitle;
         return;
       }
-      if (!this.isEdit && this.visible) {
-        this.dialogTitle = `添加${this.title}`;
+      if (this.visible) {
+        if (this.row) {
+          title = `编辑${this.title}`;
+          if (this.isDetail) {
+            title = `${this.title}详情`;
+          }
+        } else {
+          title = `添加${this.title}`;
+        }
       }
-      if (this.isEdit && this.visible) {
-        this.dialogTitle = `编辑${this.title}`;
-      }
+      this.dialogTitle = title;
     }
   }
 
