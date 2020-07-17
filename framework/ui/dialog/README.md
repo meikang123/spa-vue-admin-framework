@@ -2,9 +2,20 @@
 
 ### 示例代码
 ```
-<gt-dialog :visible.sync="visible" title="提示">
-  这是一段信息
-</gt-dialog>
+<template>
+  <gt-dialog :visible.sync="visible" title="提示">
+    这是一段信息
+  </gt-dialog>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        visible: false
+      };
+    }
+  };
+</script>
 
 ```
 
