@@ -1,13 +1,17 @@
-.gt-layout__sidebar .el-submenu [class^=el-icon-]{
+.gt-layout__sidebar .el-submenu [class^=el-icon-] {
     width: 18px;
     margin-right: 12px;
 
 }
 
-.gt-layout__sidebar .el-menu--collapse .el-submenu [class^=el-icon-]{
+.gt-layout__sidebar .el-menu--collapse .el-submenu [class^=el-icon-] {
     margin-left: 18px;
 }
 
-.gt-layout__sidebar .el-submenu__title i{
+.gt-layout__sidebar .el-submenu__title i {
     color: unset;
+}
+
+.gt-layout__sidebar .svg-icon {
+    vertical-align: middle;
 }
