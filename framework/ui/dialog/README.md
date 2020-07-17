@@ -1,5 +1,13 @@
 ### gt-dialog 公共弹窗设计方案
 
+### 示例代码
+```
+<gt-dialog :visible.sync="visible" title="提示">
+  这是一段信息
+</gt-dialog>
+
+```
+
 #### 背景
     基于element的dialog组件二次开发
 
