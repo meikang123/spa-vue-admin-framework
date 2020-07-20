@@ -5,8 +5,8 @@
       v-model="value"
       :loading="loading"
       @change="handleChange"
-      :filter-method="isUseRemoteRequest ? remoteSearch : () => {}"
-      @focus="isUseRemoteRequest ? remoteSearch() : () => {}"
+      :filter-method="handleRemoteSearch"
+      @focus="handleRemoteSearch()"
       clearable
       :remote="isUseRemoteRequest && !!remoteService"
       filterable
@@ -42,6 +42,10 @@ export default {
     paramsResolve: {
       type: [Function, Boolean],
       default: false
+    },
+    keyword: {
+      type: String,
+      default: ''
     },
     isUseRemoteRequest: {
       type: Boolean,
@@ -83,7 +87,10 @@ export default {
   },
   methods: {
     init() {
-      !this.isUseRemoteRequest && this.remoteSearch();
+      !this.isUseRemoteRequest && this.remoteSearch(keyword);
+    },
+    handleRemoteSearch() {
+      isUseRemoteRequest && remoteSearch(keyword);
     },
     remoteSearch(keyword) {
       if (this.value || !this.remoteService) {
