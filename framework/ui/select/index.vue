@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      options: this.defaultOptions || [],
+      options: [],
       loading: false,
       value: ''
     };
@@ -62,25 +62,25 @@ export default {
   mounted() {
     !this.isUseRemoteRequest && this.remoteSearch(this.keyword);
   },
-  computed: {
-    formatDefaultVal() {
-      return this.options.map(v => {
-        return {
-          value: v.id,
-          label: v.label
-        };
-      });
-    }
-  },
+  computed: {},
   watch: {
     defaultValue(value) {
       this.$nextTick(() => {
         this.value = value;
       });
     },
-    defaultOptions(value) {
-      if (value.length !== 0) {
-        this.options = Obj.deepClone(value);
+    defaultOptions: {
+      immedate: true,
+      handler(newVal) {
+        if (newVal.length !== 0) {
+          const formatOptions = newVal.map(v => {
+            return {
+              value: v.id,
+              label: v.label
+            };
+          });
+          this.options = Obj.deepClone(formatOptions);
+        }
       }
     }
   },
