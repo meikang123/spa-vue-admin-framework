@@ -16,6 +16,7 @@ const GtFormItem = {
     prop: 'gtFormItemValue',
     event: 'change'
   },
+  inheritAttrs: false,
   props: {
     gtFormItemValue: null,
     isDetail: {
