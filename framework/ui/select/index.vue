@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     handleRemoteSearch() {
-      this.isUseRemoteRequest && remoteSearch(this.keyword);
+      this.isUseRemoteRequest && this.remoteSearch(this.keyword);
     },
     remoteSearch(keyword) {
       if (this.value || !this.remoteService) {
