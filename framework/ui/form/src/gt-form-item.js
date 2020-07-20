@@ -66,7 +66,7 @@ const GtFormItem = {
       switch (type) {
         case 'input':
           return isDetail
-            ? <span>{this.itemValue}</span>
+            ? <div>{this.itemValue}</div>
             : <el-input
               v-model={this.itemValue}
               placeholder={placeholder}
@@ -89,7 +89,7 @@ const GtFormItem = {
             return false;
           }).map(option => option.label);
           return isDetail
-            ? (show || <span>{showValue.join(',')}</span>)
+            ? (show || <div>{showValue.join(',')}</div>)
             : <gt-select
               v-model={this.itemValue}
               style={{ style }}
