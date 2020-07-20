@@ -128,7 +128,6 @@ export default {
             }
             return { value: item.id, label: `${item.name}` };
           });
-          this.value = this.defaultValue;
         }
       });
     },

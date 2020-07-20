@@ -60,7 +60,7 @@ module.exports = {
     'no-unneeded-ternary': 'error', // 禁止可以表达为更简单结构的三元操作符
     'space-before-function-paren': 'error', // 禁止方法左括号前有空格
     'space-infix-ops': 'error', // 运算符周围需要空格
-    'arrow-parens': ['error','as-needed'], // 箭头函数参数必须使用括号圈起来
+    'arrow-parens': ['error', 'as-needed'], // 箭头函数参数必须使用括号圈起来
     'no-confusing-arrow': ['error', { allowParens: true }], // 禁止在可能与比较操作符相混淆的地方使用箭头函数
     'no-duplicate-imports': ['error', { includeExports: true }], // 禁止重复 import
     'no-var': 'error', // 强制使用 let / const 替换 var
@@ -69,8 +69,8 @@ module.exports = {
     // allow debugger during development
     'no-unused-expressions': ['error', { 'allowShortCircuit': true }],
     'comma-dangle': ['error', 'never'],
-    'no-trailing-spaces': ['error', {'skipBlankLines': true}],
-    'object-curly-newline': ['error', {'consistent': true }],
+    'no-trailing-spaces': ['error', { 'skipBlankLines': true }],
+    'object-curly-newline': ['error', { 'consistent': true }],
     // https://github.com/vuejs/eslint-plugin-vue/blob/v6.2.2/docs/rules/README.md
     'vue/max-attributes-per-line': ['error', {
       singleline: 8,
