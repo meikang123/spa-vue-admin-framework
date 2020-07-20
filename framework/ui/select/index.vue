@@ -6,17 +6,16 @@
       :loading="loading"
       @change="handleChange"
       :filter-method="remoteSearch"
-      @focus="remoteSearch()"
+      @focus="!isUseRemoteRequest && remoteSearch()"
       clearable
       :remote="!!remoteService"
       filterable
     >
-      <el-option :label="item.label" :value="item.value" v-for="(item) in options" :key="item.value" />
+      <el-option :label="item.label" :value="item.value" v-for="item in options" :key="item.value" />
     </el-select>
   </div>
 </template>
 <script>
-// import { mapGetters } from 'vuex';
 import { Obj } from '@framework/utils';
 
 export default {
@@ -26,7 +25,8 @@ export default {
     event: 'changeSelected'
   },
   props: {
-    defaultValue: { // v-model
+    defaultValue: {
+      // v-model
       type: [String, Number],
       default: ''
     },
@@ -41,6 +41,10 @@ export default {
     },
     paramsResolve: {
       type: [Function, Boolean],
+      default: false
+    },
+    isUseRemoteRequest: {
+      type: Boolean,
       default: false
     },
     remoteService: {
@@ -62,11 +66,9 @@ export default {
     };
   },
   mounted() {
-    // this.init();
+    this.init();
   },
-  computed: {
-    // ...mapGetters(['dict'])
-  },
+  computed: {},
   watch: {
     defaultValue(value) {
       this.$nextTick(() => {
@@ -80,6 +82,9 @@ export default {
     }
   },
   methods: {
+    init() {
+      isUseRemoteRequest && this.remoteSearch();
+    },
     remoteSearch(keyword) {
       if (this.value || !this.remoteService) {
         return;
