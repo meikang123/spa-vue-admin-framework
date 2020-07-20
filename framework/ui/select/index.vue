@@ -1,23 +1,22 @@
 <template>
-  <div>
-    <el-select
-      :placeholder="placeholder"
-      v-model="value"
-      :loading="loading"
-      @change="handleChange"
-      @focus="handleRemoteSearch()"
-      clearable
-      :remote="!useRequestCache && !!requestService"
-      filterable
-    >
-      <el-option
-        :label="item.label"
-        :value="item.value"
-        v-for="item in options"
-        :key="item.value"
-      />
-    </el-select>
-  </div>
+  <el-select
+    :placeholder="placeholder"
+    v-model="value"
+    :loading="loading"
+    @change="handleChange"
+    @focus="handleRemoteSearch()"
+    clearable
+    v-bind="$attrs"
+    :remote="!useRequestCache && !!requestService"
+    filterable
+  >
+    <el-option
+      :label="item.label"
+      :value="item.value"
+      v-for="item in options"
+      :key="item.value"
+    />
+  </el-select>
 </template>
 <script>
 import { Obj } from '@framework/utils';
@@ -31,7 +30,7 @@ export default {
   props: {
     defaultValue: {
       // v-model
-      type: [String, Number],
+      type: [String, Number, Array],
       default: ''
     },
     placeholder: {
@@ -39,7 +38,7 @@ export default {
       default: '请选择内容'
     },
     // type-options gt-form-item
-    resResolve: {
+    responseResolve: {
       type: [Function, Boolean],
       default: false
     },
@@ -73,10 +72,26 @@ export default {
       value: ''
     };
   },
+  created() {
+    // just for no remote
+    if (!this.isRemote) {
+      this.value = this.defaultValue;
+      this.options = Obj.deepClone(this.defaultOptions).map(option => ({
+        value: option.value || option.id,
+        label: option.name || option.label
+      }));
+    }
+  },
+
+  computed: {
+    isRemote() {
+      return !!this.remoteService;
+    }
+  },
+
   mounted() {
     this.useRequestCache && this.remoteSearch(this.keyword);
   },
-  computed: {},
   watch: {
     defaultValue: {
       immediate: true,
@@ -88,17 +103,16 @@ export default {
       immediate: true,
       handler(newVal) {
         if (newVal.length !== 0) {
-          const formatOptions = newVal.map(v => {
-            return {
-              value: v.id,
-              label: v.label
-            };
-          });
+          const formatOptions = newVal.map(v => ({
+            value: v.id || v.value,
+            label: v.label || v.name
+          }));
           this.options = Obj.deepClone(formatOptions);
         }
       }
     }
   },
+
   methods: {
     handleRemoteSearch() {
       !this.useRequestCache && this.remoteSearch(this.keyword);
@@ -107,9 +121,15 @@ export default {
       if (this.value || !this.requestService) {
         return;
       }
-      this.loading = true;
 
-      // TODO 需要merge外部参数用于做联动
+      if (this.value instanceof Array) {
+        if (this.value.length > 0) {
+          return;
+        }
+      } else if (this.value) {
+        return;
+      }
+      this.loading = true;
       let params = {
         keyword,
         page: 1,
