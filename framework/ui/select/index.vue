@@ -90,7 +90,7 @@ export default {
       !this.isUseRemoteRequest && this.remoteSearch(this.keyword);
     },
     handleRemoteSearch() {
-      isUseRemoteRequest && remoteSearch(this.keyword);
+      this.isUseRemoteRequest && remoteSearch(this.keyword);
     },
     remoteSearch(keyword) {
       if (this.value || !this.remoteService) {
