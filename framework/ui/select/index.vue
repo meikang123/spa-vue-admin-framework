@@ -87,10 +87,10 @@ export default {
   },
   methods: {
     init() {
-      !this.isUseRemoteRequest && this.remoteSearch(keyword);
+      !this.isUseRemoteRequest && this.remoteSearch(this.keyword);
     },
     handleRemoteSearch() {
-      isUseRemoteRequest && remoteSearch(keyword);
+      isUseRemoteRequest && remoteSearch(this.keyword);
     },
     remoteSearch(keyword) {
       if (this.value || !this.remoteService) {
