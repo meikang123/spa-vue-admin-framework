@@ -8,7 +8,7 @@
       :filter-method="isUseRemoteRequest ? remoteSearch : () => {}"
       @focus="isUseRemoteRequest ? remoteSearch() : () => {}"
       clearable
-      :remote="!!remoteService"
+      :remote="isUseRemoteRequest && !!remoteService"
       filterable
     >
       <el-option :label="item.label" :value="item.value" v-for="item in options" :key="item.value" />
