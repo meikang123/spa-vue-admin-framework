@@ -62,7 +62,16 @@ export default {
   mounted() {
     !this.isUseRemoteRequest && this.remoteSearch(this.keyword);
   },
-  computed: {},
+  computed: {
+    formatDefaultVal() {
+      return this.options.map(v => {
+        return {
+          value: v.id,
+          label: v.label
+        };
+      });
+    }
+  },
   watch: {
     defaultValue(value) {
       this.$nextTick(() => {
