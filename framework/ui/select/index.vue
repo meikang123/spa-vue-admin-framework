@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      options: [],
+      options: this.defaultOptions || [],
       loading: false,
       value: ''
     };
