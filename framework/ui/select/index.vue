@@ -1,16 +1,6 @@
 <template>
   <div>
-    <el-select
-      :placeholder="placeholder"
-      v-model="value"
-      :loading="loading"
-      @change="handleChange"
-      :filter-method="remoteSearch"
-      @focus="handleRemoteSearch()"
-      clearable
-      :remote="isUseRemoteRequest && !!remoteService"
-      filterable
-    >
+    <el-select :placeholder="placeholder" v-model="value" :loading="loading" @change="handleChange" @focus="handleRemoteSearch()" clearable :remote="isUseRemoteRequest && !!remoteService" filterable>
       <el-option :label="item.label" :value="item.value" v-for="item in options" :key="item.value" />
     </el-select>
   </div>
@@ -70,7 +60,7 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    !this.isUseRemoteRequest && this.remoteSearch(this.keyword);
   },
   computed: {},
   watch: {
@@ -86,9 +76,6 @@ export default {
     }
   },
   methods: {
-    init() {
-      !this.isUseRemoteRequest && this.remoteSearch(this.keyword);
-    },
     handleRemoteSearch() {
       this.isUseRemoteRequest && remoteSearch(this.keyword);
     },
