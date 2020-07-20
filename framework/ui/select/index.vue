@@ -1,21 +1,24 @@
 <template>
   <el-select
-    v-model="value"
     :placeholder="placeholder"
+    v-model="value"
     :loading="loading"
-    :remote-method="remoteSearch"
-    :remote="isRemote"
-    clearable
-    filterable
-    v-bind="$attrs"
-    @focus="remoteSearch()"
     @change="handleChange"
+    @focus="handleRemoteSearch()"
+    clearable
+    v-bind="$attrs"
+    :remote="!useRequestCache && !!requestService"
+    filterable
   >
-    <el-option :label="item.label" :value="item.value" v-for="(item) in options" :key="item.value" />
+    <el-option
+      :label="item.label"
+      :value="item.value"
+      v-for="item in options"
+      :key="item.value"
+    />
   </el-select>
 </template>
 <script>
-// import { mapGetters } from 'vuex';
 import { Obj } from '@framework/utils';
 
 export default {
@@ -42,7 +45,15 @@ export default {
       type: [Function, Boolean],
       default: false
     },
-    remoteService: {
+    keyword: {
+      type: String,
+      default: ''
+    },
+    useRequestCache: {
+      type: Boolean,
+      default: false
+    },
+    requestService: {
       type: [Function, Boolean],
       default: false
     },
@@ -60,7 +71,6 @@ export default {
       value: ''
     };
   },
-
   created() {
     // just for no remote
     if (!this.isRemote) {
@@ -75,23 +85,37 @@ export default {
     }
   },
 
+  mounted() {
+    this.useRequestCache && this.remoteSearch(this.keyword);
+  },
   watch: {
-    defaultValue(value) {
-      this.$nextTick(() => {
-        this.value = value;
-      });
+    defaultValue: {
+      immediate: true,
+      handler(newVal) {
+        this.value = newVal;
+      }
     },
-    defaultOptions(value) {
-      if (value.length !== 0) {
-        this.options = Obj.deepClone(value);
+    defaultOptions: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal.length !== 0) {
+          const formatOptions = newVal.map(v => ({
+            value: v.id || v.value,
+            label: v.label || v.name
+          }));
+          this.options = Obj.deepClone(formatOptions);
+        }
       }
     }
    
   },
 
   methods: {
+    handleRemoteSearch() {
+      !this.useRequestCache && this.remoteSearch(this.keyword);
+    },
     remoteSearch(keyword) {
-      if (!this.remoteService) {
+      if (this.value || !this.requestService) {
         return;
       }
 
@@ -103,7 +127,6 @@ export default {
         return;
       }
       this.loading = true;
-      // TODO 需要merge外部参数用于做联动
       let params = {
         keyword,
         page: 1,
@@ -113,7 +136,7 @@ export default {
         params = this.paramsResolve(params);
       }
 
-      this.remoteService(params).then(res => {
+      this.requestService(params).then(res => {
         this.loading = false;
         if (res && res.code === 0) {
           if (this.responseResolve) {

@@ -1,14 +1,17 @@
 import { GtFormItem } from './form';
 import GtSelect from './select';
+import Dialog from './dialog';
 
 export {
   GtFormItem,
-  GtSelect
+  GtSelect,
+  Dialog
 };
 
 const components = [
   GtFormItem,
-  GtSelect
+  GtSelect,
+  Dialog
 ];
 const install = Vue => {
   components.forEach(comp => {
