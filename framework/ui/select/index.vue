@@ -1,7 +1,21 @@
 <template>
   <div>
-    <el-select :placeholder="placeholder" v-model="value" :loading="loading" @change="handleChange" @focus="handleRemoteSearch()" clearable :remote="isUseRemoteRequest && !!remoteService" filterable>
-      <el-option :label="item.label" :value="item.value" v-for="item in options" :key="item.value" />
+    <el-select
+      :placeholder="placeholder"
+      v-model="value"
+      :loading="loading"
+      @change="handleChange"
+      @focus="handleRemoteSearch()"
+      clearable
+      :remote="!useRequestCache && !!requestService"
+      filterable
+    >
+      <el-option
+        :label="item.label"
+        :value="item.value"
+        v-for="item in options"
+        :key="item.value"
+      />
     </el-select>
   </div>
 </template>
@@ -37,11 +51,11 @@ export default {
       type: String,
       default: ''
     },
-    isUseRemoteRequest: {
+    useRequestCache: {
       type: Boolean,
       default: false
     },
-    remoteService: {
+    requestService: {
       type: [Function, Boolean],
       default: false
     },
@@ -60,17 +74,18 @@ export default {
     };
   },
   mounted() {
-    !this.isUseRemoteRequest && this.remoteSearch(this.keyword);
+    this.useRequestCache && this.remoteSearch(this.keyword);
   },
   computed: {},
   watch: {
-    defaultValue(value) {
-      this.$nextTick(() => {
-        this.value = value;
-      });
+    defaultValue: {
+      immediate: true,
+      handler(newVal) {
+        this.value = newVal;
+      }
     },
     defaultOptions: {
-      immedate: true,
+      immediate: true,
       handler(newVal) {
         if (newVal.length !== 0) {
           const formatOptions = newVal.map(v => {
@@ -86,10 +101,10 @@ export default {
   },
   methods: {
     handleRemoteSearch() {
-      this.isUseRemoteRequest && this.remoteSearch(this.keyword);
+      !this.useRequestCache && this.remoteSearch(this.keyword);
     },
     remoteSearch(keyword) {
-      if (this.value || !this.remoteService) {
+      if (this.value || !this.requestService) {
         return;
       }
       this.loading = true;
@@ -104,7 +119,7 @@ export default {
         params = this.paramsResolve(params);
       }
 
-      this.remoteService(params).then(res => {
+      this.requestService(params).then(res => {
         this.loading = false;
         if (res && res.code === 0) {
           this.options = (res.data.data || []).map(item => {
