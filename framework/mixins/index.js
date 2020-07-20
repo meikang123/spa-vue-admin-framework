@@ -1,4 +1,4 @@
-import TABLE_DIALOG_MIXIN from './table-dialog-enums';
+import TABLE_DIALOG_MIXIN from './table-dialog';
 
 const abc = {};
 

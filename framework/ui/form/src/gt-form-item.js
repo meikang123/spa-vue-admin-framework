@@ -1,3 +1,13 @@
+/**
+ * @description 递归查找最近的一个form
+ * @param {*} parent
+ */
+const findParentForm = parent => {
+  if (parent._vnode.tag === 'form') {
+    return parent;
+  }
+  return findParentForm(parent.$parent);
+};
 
 const GtFormItem = {
   parentForm: null,
@@ -6,7 +16,14 @@ const GtFormItem = {
     prop: 'gtFormItemValue',
     event: 'change'
   },
-  props: ['gtFormItemValue'],
+  props: {
+    gtFormItemValue: null,
+    isDetail: {
+      type: Boolean,
+      default: undefined
+    }
+  },
+
   data() {
     return {
       itemValue: this.gtFormItemValue
@@ -22,88 +39,73 @@ const GtFormItem = {
     }
   },
 
+  created() {
+    this.parentForm = findParentForm(this.$parent);
+  },
+
   render() {
-    // const inputAttributes = {
-    //   class: 'input-field', // class definition
-    //   onClick: this.handleClick, // event handler
-    //   backdrop: false, // custom prop
-    //   abc: 'fdsafd',
-    //   on: {
-    //     click: this.handleClick
-    //   },
-    //   attrs: {
-    //     test: 'fdsafd'
-    //   }
-    // };
-    // return (
-    //   <div {...inputAttributes} style={{ color: 'red' }} >fdsaf</div>
-    // );
-    const findParentForm = parent => {
-      if (parent._vnode.tag === 'form') {
-        return parent;
+    const {
+      $attrs: {
+        label, prop, rules, type, placeholder, 'item-style': itemStyle,
+        'type-options': typeOptions = { clearable: true }
       }
-      return findParentForm(parent.$parent);
-      // this.parentForm = this.findParentForm();
-    };
-    const { $attrs: { label, prop, rules, type, placeholder, 'type-options': typeOptions = {} } } = this;
-    // 从父组件中取form ,待优化递归找到最近的一个form的 mode
-    // const { $parent: { $attrs: { 'is-detail': isDetail } } } = this;
-    const parentForm = findParentForm(this.$parent);
-    const { $attrs: { 'is-detail': isDetail } } = parentForm;
-    
-    const { customShow } = this.$slots;
-    // vue jsx 不支持函数引入所以一堆 case
-    const itemIsDetail = isDetail;
-    const createItemContent = () => {
+    } = this;
+
+    // 优先取item isDetail，如果没有取最近一个form的
+    let { isDetail } = this;
+    if (typeof isDetail === 'undefined') {
+      isDetail = this.parentForm.$attrs['is-detail'];
+    }
+    const { style = {} } = typeOptions;
+
+    const { show, edit } = this.$slots;
+    // 用case 解决嵌套过深问题
+
+    const itemContent = () => {
       switch (type) {
         case 'input':
-
-          return itemIsDetail
+          return isDetail
             ? <span>{this.itemValue}</span>
             : <el-input
               v-model={this.itemValue}
               placeholder={placeholder}
-              {...typeOptions}
+              style={{ style }}
+              {...{ attrs: { ...typeOptions } }}
             />;
       
         case 'select':
-          const { remoteService, defaultOptions = [] } = typeOptions;
+          const { itemValue } = this;
+          const { defaultOptions = [] } = typeOptions;
           const showValue = defaultOptions.filter(option => {
-            if (option.value === this.itemValue) {
+            // 单选
+            if (option.value === itemValue) {
+              return true;
+            }
+            // 多选
+            if (itemValue instanceof Array && itemValue.indexOf(option.value) !== -1) {
               return true;
             }
             return false;
           }).map(option => option.label);
-
-          return itemIsDetail
-            ? (customShow || <span>{showValue.join(',')}</span>)
+          return isDetail
+            ? (show || <span>{showValue.join(',')}</span>)
             : <gt-select
               v-model={this.itemValue}
-              placeholder={placeholder}
-              remoteService={remoteService}
-              defaultOptions={defaultOptions}
-              {...typeOptions}
+              style={{ style }}
+              {...{ attrs: { ...typeOptions } }}
             />;
-        
-        case 'textarea':
-
-          return itemIsDetail
-            ? <span>{this.itemValue}</span>
-            : <el-input
-              type="textarea"
-              v-model={this.itemValue}
-              placeholder={placeholder}
-              {...typeOptions}/>;
-        
+        case 'custom':
+          return isDetail
+            ? show
+            : edit;
         default:
           return <span>gt-form-item: type no exists</span>;
       }
     };
-    
     return (
-      <el-form-item label={label} prop={prop} rules={rules}>
+      <el-form-item label={label} prop={prop} rules={rules} style={ itemStyle }>
         {
-          createItemContent()
+          itemContent
         }
       </el-form-item>
     );

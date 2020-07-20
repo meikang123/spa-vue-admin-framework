@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <el-select
-      :placeholder="placeholder"
-      v-model="value"
-      :loading="loading"
-      @change="handleChange"
-      :filter-method="remoteSearch"
-      @focus="remoteSearch()"
-      clearable
-      :remote="!!remoteService"
-      filterable
-    >
-      <el-option :label="item.label" :value="item.value" v-for="(item) in options" :key="item.value" />
-    </el-select>
-  </div>
+  <el-select
+    v-model="value"
+    :placeholder="placeholder"
+    :loading="loading"
+    :remote-method="remoteSearch"
+    :remote="isRemote"
+    clearable
+    filterable
+    v-bind="$attrs"
+    @focus="remoteSearch()"
+    @change="handleChange"
+  >
+    <el-option :label="item.label" :value="item.value" v-for="(item) in options" :key="item.value" />
+  </el-select>
 </template>
 <script>
 // import { mapGetters } from 'vuex';
@@ -27,7 +26,7 @@ export default {
   },
   props: {
     defaultValue: { // v-model
-      type: [String, Number],
+      type: [String, Number, Array],
       default: ''
     },
     placeholder: {
@@ -35,7 +34,7 @@ export default {
       default: '请选择内容'
     },
     // type-options gt-form-item
-    resResolve: {
+    responseResolve: {
       type: [Function, Boolean],
       default: false
     },
@@ -61,12 +60,21 @@ export default {
       value: ''
     };
   },
-  mounted() {
-    // this.init();
+
+  created() {
+    // just for no remote
+    if (!this.isRemote) {
+      this.value = this.defaultValue;
+      this.options = Obj.deepClone(this.defaultOptions).map(option => ({ value: option.value || option.id, label: option.name || option.label }));
+    }
   },
+
   computed: {
-    // ...mapGetters(['dict'])
+    isRemote() {
+      return !!this.remoteService;
+    }
   },
+
   watch: {
     defaultValue(value) {
       this.$nextTick(() => {
@@ -78,14 +86,23 @@ export default {
         this.options = Obj.deepClone(value);
       }
     }
+   
   },
+
   methods: {
     remoteSearch(keyword) {
-      if (this.value || !this.remoteService) {
+      if (!this.remoteService) {
+        return;
+      }
+
+      if (this.value instanceof Array) {
+        if (this.value.length > 0) {
+          return;
+        }
+      } else if (this.value) {
         return;
       }
       this.loading = true;
-
       // TODO 需要merge外部参数用于做联动
       let params = {
         keyword,
@@ -99,12 +116,11 @@ export default {
       this.remoteService(params).then(res => {
         this.loading = false;
         if (res && res.code === 0) {
-          this.options = (res.data.data || []).map(item => {
-            if (this.resResolve) {
-              return this.resResolve(res.data);
-            }
-            return { value: item.id, label: `${item.name}` };
-          });
+          if (this.responseResolve) {
+            this.options = this.responseResolve(res.data);
+          } else {
+            this.options = (res.data.data || []).map(item => ({ value: item.value || item.id, label: item.name || item.label }));
+          }
           this.value = this.defaultValue;
         }
       });

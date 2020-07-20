@@ -206,17 +206,18 @@ class Enum {
     return array;
   }
 
-  toSelectionObject() {
+  /**
+   * @description 用于select组件的 options
+   */
+  toSelectOptions() {
     const array = this.toArray();
-    const aaa = array.reduce(
-      (options, item) => {
-        const nextOptions = options;
-        nextOptions[item.value] = item.text;
-        return nextOptions;
-      },
-      {},
+    const options = array.map(
+      item => ({
+        value: item.value,
+        label: item.text
+      }),
     );
-    return aaa;
+    return options;
   }
 
   // { label: 'Apple', value: 'Apple' },
@@ -229,7 +230,7 @@ class Enum {
     array = [...array, ...this.toArray()];
 
     return array.map(
-      (item) => ({ label: item.text, value: item.value }),
+      item => ({ label: item.text, value: item.value }),
     );
   }
 }
