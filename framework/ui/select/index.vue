@@ -6,7 +6,7 @@
       :loading="loading"
       @change="handleChange"
       :filter-method="remoteSearch"
-      @focus="isUseRemoteRequest && remoteSearch()"
+      @focus="isUseRemoteRequest ? remoteSearch() : () => {}"
       clearable
       :remote="!!remoteService"
       filterable
