@@ -5,8 +5,8 @@
       v-model="value"
       :loading="loading"
       @change="handleChange"
-      :filter-method="isUseRemoteRequest && remoteSearch"
-      @focus="isUseRemoteRequest && remoteSearch()"
+      :filter-method="isUseRemoteRequest ? remoteSearch : () => {}"
+      @focus="isUseRemoteRequest ? remoteSearch() : () => {}"
       clearable
       :remote="!!remoteService"
       filterable
