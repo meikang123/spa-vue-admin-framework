@@ -118,7 +118,7 @@ export default {
       !this.useRequestCache && this.remoteSearch(this.keyword);
     },
     remoteSearch(keyword) {
-      if (this.value || !this.requestService) {
+      if ((this.value && !(this.value instanceof Array)) || !this.requestService) {
         return;
       }
 
@@ -126,9 +126,8 @@ export default {
         if (this.value.length > 0) {
           return;
         }
-      } else if (this.value) {
-        return;
       }
+
       this.loading = true;
       let params = {
         keyword,
@@ -142,12 +141,11 @@ export default {
       this.requestService(params).then(res => {
         this.loading = false;
         if (res && res.code === 0) {
-          this.options = (res.data.data || []).map(item => {
-            if (this.resResolve) {
-              return this.resResolve(res.data);
-            }
-            return { value: item.id, label: `${item.name}` };
-          });
+          if (this.responseResolve) {
+            this.options = this.responseResolve(res.data);
+            return;
+          }
+          this.options = (res.data.data || []).map(item => ({ value: item.id, label: `${item.name}` }));
         }
       });
     },

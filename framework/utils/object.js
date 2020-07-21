@@ -50,8 +50,26 @@ const deepClone = object => {
   return targetObj;
 };
 
+const generateCURD = (path, request) => ({
+  getList(data) {
+    return request.get(`${path}`, { params: data });
+  },
+  
+  detail(id) {
+    return request.get(`${path}/${id}`);
+  },
+  
+  delete(id) {
+    return request.delete(`${path}/${id}`);
+  },
+  
+  modify(data) {
+    return request.post(`${path}`, data);
+  }
+});
 
 export default {
   get,
-  deepClone
+  deepClone,
+  generateCURD
 };
