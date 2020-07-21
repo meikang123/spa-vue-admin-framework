@@ -133,7 +133,7 @@ BY 沈展平
 
 1. requestService 传入请求接口
 
->远程接口方式
+>缓存接口方式
 
 1. requestService 传入请求接口
 2. useRequestCache 传入布尔值,决定是否使用接口缓存
