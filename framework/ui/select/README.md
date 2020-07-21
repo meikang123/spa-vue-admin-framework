@@ -74,7 +74,7 @@ BY 沈展平
 </script>
 
 ```
-## 远程接口方式
+## 缓存接口方式
 ```
 <template>
   <gt-select
