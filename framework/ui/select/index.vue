@@ -118,14 +118,12 @@ export default {
       !this.useRequestCache && this.remoteSearch(this.keyword);
     },
     remoteSearch(keyword) {
-      if ((this.value && !(this.value instanceof Array)) || !this.requestService) {
+      if (
+        ((this.value && !(this.value instanceof Array)) ||
+          !this.requestService) &&
+        !this.attrs.multiple
+      ) {
         return;
-      }
-
-      if (this.value instanceof Array) {
-        if (this.value.length > 0) {
-          return;
-        }
       }
 
       this.loading = true;
@@ -145,7 +143,10 @@ export default {
             this.options = this.responseResolve(res.data);
             return;
           }
-          this.options = (res.data.data || []).map(item => ({ value: item.id, label: `${item.name}` }));
+          this.options = (res.data.data || []).map(item => ({
+            value: item.id,
+            label: `${item.name}`
+          }));
         }
       });
     },
