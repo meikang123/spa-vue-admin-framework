@@ -117,7 +117,7 @@ class Enum {
    * @return {string} 对应的文字
    */
   getTextFromValue(value) {
-    return this.fromValue(value).text;
+    return this.fromValue(value) ? this.fromValue(value).text : '--';
   }
 
   /**
