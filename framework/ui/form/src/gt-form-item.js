@@ -93,6 +93,7 @@ const GtFormItem = {
             : <gt-select
               v-model={this.itemValue}
               style={{ style }}
+              placeholder={placeholder}
               {...{ attrs: { ...typeOptions } }}
             />;
         case 'custom':
