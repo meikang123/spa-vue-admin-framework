@@ -72,6 +72,22 @@ export default {
       value: ''
     };
   },
+  created() {
+    // just for no remote
+    if (!this.isRemote) {
+      this.value = this.defaultValue;
+      this.options = Obj.deepClone(this.defaultOptions).map(option => ({
+        value: option.value || option.id,
+        label: option.name || option.label
+      }));
+    }
+  },
+
+  computed: {
+    isRemote() {
+      return !!this.remoteService;
+    }
+  },
 
   mounted() {
     this.useRequestCache && this.remoteSearch(this.keyword);
@@ -102,16 +118,12 @@ export default {
       !this.useRequestCache && this.remoteSearch(this.keyword);
     },
     remoteSearch(keyword) {
-      debugger;
-      
-      if ((this.value && !(this.value instanceof Array)) || !this.requestService) {
+      if (
+        ((this.value && !(this.value instanceof Array)) ||
+          !this.requestService) &&
+        !this.attrs.multiple
+      ) {
         return;
-      }
-
-      if (this.value instanceof Array) {
-        if (this.value.length > 0) {
-          return;
-        }
       }
 
       this.loading = true;
@@ -131,7 +143,10 @@ export default {
             this.options = this.responseResolve(res.data);
             return;
           }
-          this.options = (res.data.data || []).map(item => ({ value: item.id, label: `${item.name}` }));
+          this.options = (res.data.data || []).map(item => ({
+            value: item.id,
+            label: `${item.name}`
+          }));
         }
       });
     },
