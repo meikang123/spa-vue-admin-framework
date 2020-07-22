@@ -151,4 +151,5 @@ BY 沈展平
 | useRequestCache | 是否使用接口缓存 | Boolean | true/false | false |
 | value | 绑定值 | boolean / string / number| —— | —— |
 | placeholder | 占位符 | string | —— | 请选择 |
+| multiple | 多选 | boolean | —— | false |
 
