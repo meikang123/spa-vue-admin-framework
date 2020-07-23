@@ -104,9 +104,9 @@ export default {
     },
     remoteSearch(keyword) {
       if (
-        ((this.value && !(this.value instanceof Array)) ||
-          !this.requestService) &&
-        !this.attrs.multiple
+        ((this.value && !(this.value instanceof Array))
+          || !this.requestService)
+          && !this.$attrs.multiple
       ) {
         return;
       }
