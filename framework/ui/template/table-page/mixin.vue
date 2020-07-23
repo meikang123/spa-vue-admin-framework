@@ -81,8 +81,10 @@ export default {
     setTableHeight() {
       // tableT
       const el = this.$el.querySelector('.search-result');
-      const { height } = el.getBoundingClientRect();
-      this.tableHeight = height - 75;
+      if (el) {
+        const { height } = el.getBoundingClientRect();
+        this.tableHeight = height - 75;
+      }
     },
 
     documentResizeHandler() {

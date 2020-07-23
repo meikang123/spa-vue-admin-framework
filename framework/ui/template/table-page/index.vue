@@ -22,10 +22,7 @@
 
 export default {
   inject: ['tablePageMIXIN'],
-  name: 'GtTablePage',
-  created() {
-    this.tablePageMIXIN.tablePageEl = this.$el;
-  }
+  name: 'GtTablePage'
 };
 </script>
 <style lang="scss">
