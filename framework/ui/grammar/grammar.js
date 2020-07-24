@@ -20,7 +20,7 @@ export default {
       type: String | Number,
       default: '400px'
     },
-    codeFold: { // 是否折叠
+    readyOnly: { // 是否只读
       type: Boolean,
       default: false
     },
@@ -30,7 +30,7 @@ export default {
         return {};
       }
     },
-    langDefault: {
+    langDefault: { // 默认语言
       type: String,
       default: 'text'
     },
@@ -44,7 +44,7 @@ export default {
     const width = this.width ? this.px(this.width) : '100%';
     const style = { width, height, border: '1px solid #d5d5d5' };
     return (<div>
-      {this.showChangeLanguage ? <ChangeLang vModel={this.lang} /> : ''}
+      {(this.showChangeLanguage && !this.readyOnly) ? <ChangeLang vModel={this.lang} /> : ''}
       <div class="edit-main" style={style} />
     </div>);
   },
@@ -62,16 +62,13 @@ export default {
     init() {
       this.lang = this.langDefault;
       this.editor = ace.edit(this.$el.querySelector('.edit-main'));
-      const { lang, theme, codeFold, options, editor } = this;
+      const { lang, theme, options, editor } = this;
       editor.$blockScrolling = Infinity;
       editor.getSession().setMode(`ace/mode/${lang}`);
       editor.setTheme(`ace/theme/${theme}`);
-      if (codeFold) {
-        editor.getSession().setTabSize(2);
-        editor.getSession().setUseWrapMode(true);
-      }
-      if (this.value) editor.setValue(this.value, 1);
-      this.contentBackup = this.value;
+      // editor.getSession().setTabSize(2);
+
+      this.initData();
 
       editor.on('change', () => {
         const content = editor.getValue();
@@ -80,6 +77,26 @@ export default {
       });
       if (options) editor.setOptions(options);
       this.$emit('init', editor); // 透传对象出去、外部控制
+    },
+    initData() {
+      const { value, lang, editor, readyOnly } = this;
+      let content = value;
+      if (readyOnly) { // 是否只读
+        editor.setReadOnly(true);
+        if (lang === 'json') {
+          if (typeof value === 'string') {
+            try {
+              content = JSON.parse(value);
+              content = JSON.stringify(content, null, '\t');
+            } catch (error) {
+              content = value;
+            }
+          }
+        }
+      }
+
+      if (content) editor.setValue(content, 1);
+      this.contentBackup = value;
     },
     px(n) {
       if (/^\d*$/.test(n)) {
@@ -90,10 +107,7 @@ export default {
   },
   watch: {
     value(val) {
-      if (this.contentBackup !== val) {
-        this.editor.session.setValue(val, 1);
-        this.contentBackup = val;
-      }
+      if (this.contentBackup !== val) this.initData();
     },
     theme(newTheme) {
       this.editor.setTheme(`ace/theme/${newTheme}`);
