@@ -1,7 +1,7 @@
-import GtTablePage from './table-page';
-import GtTablePageMIXIN from './table-page/mixin';
+import GtTableTpl from './table';
+import GtTableTplMIXIN from './table/mixin';
 
 export {
-  GtTablePage,
-  GtTablePageMIXIN
+  GtTableTpl,
+  GtTableTplMIXIN
 };

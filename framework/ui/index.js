@@ -2,15 +2,15 @@ import { GtFormItem } from './form';
 import GtSelect from './select';
 import GtDialog from './dialog';
 import GtPagination from './pagination';
-import { GtTablePage, GtTablePageMIXIN } from './template';
+import { GtTableTpl, GtTableTplMIXIN } from './template';
 
 export {
   GtFormItem,
   GtSelect,
   GtDialog,
   GtPagination,
-  GtTablePage,
-  GtTablePageMIXIN
+  GtTableTpl,
+  GtTableTplMIXIN
 };
 
 const components = [
@@ -18,7 +18,7 @@ const components = [
   GtSelect,
   GtDialog,
   GtPagination,
-  GtTablePage
+  GtTableTpl
 ];
 
 const install = Vue => {

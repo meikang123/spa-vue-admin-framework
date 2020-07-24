@@ -4,7 +4,7 @@ let resizeTimeOut = null;
 export default {
   provide() {
     return {
-      tablePageMIXIN: this
+      tableTplMIXIN: this
     };
   },
   data() {
@@ -80,9 +80,11 @@ export default {
 
     setTableHeight() {
       // tableT
-      const el = this.$el.querySelector('.search-result');
-      const { height } = el.getBoundingClientRect();
-      this.tableHeight = height - 75;
+      const el = this.$el.querySelector('.gt-table-template__search-result');
+      if (el) {
+        const { height } = el.getBoundingClientRect();
+        this.tableHeight = height - 75;
+      }
     },
 
     documentResizeHandler() {
@@ -99,7 +101,6 @@ export default {
     this.$nextTick(() => {
       this.setTableHeight();
     });
-
     window.addEventListener('resize', this.documentResizeHandler);
   },
 
