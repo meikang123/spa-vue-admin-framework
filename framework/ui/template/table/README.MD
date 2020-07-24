@@ -1,37 +1,46 @@
-查询列表页模版组件
+TABLE 模版组件 模版类组件
 ===
-demo:
+> 解决的问题：为常见的列表查询页面进行封装，规范列表查询的编写方式
 
+模版组件分为两部分：组件部分，mixin部分。两部分需要配套使用
+
+### 示例
 ```html
-<TablePage ref="tablePage" :pagination="pagination" @changePage="changePage" @changePageSize="changePageSize" :req-loading-text="reqLoadingText" :req-loading="reqLoading">
-  <template slot="top-block-content">
-    <el-form inline class="search-form" :model="searchData" refs="searchForm" @change="search()">
+<!--template 部分 -->
+<gt-table-tpl>
+  <template slot="search-form-items">
     <el-form-item>
-      <el-input type="text" v-model.number="searchData.id" clearable placeholder="请输入用例ID" />
+      <el-input 
+        placeholder="请输入产品名称" 
+        v-model="searchData.keyword" 
+        suffix-icon="el-icon-edit" 
+      />
     </el-form-item>
-    <!--el-form items-->
-    <el-form-item>
-      <el-button type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
-      <el-button type="primary" @click="reset()">重置</el-button>
-      <el-button type="primary" icon="el-icon-plus" @click="addRecord()">新增</el-button>
-    </el-form-item>
-  </el-form>
   </template>
-  <template slot="table">
-    <el-table border :data="resultData.list" :max-height="tableHeight" style="width: 100%" stripe :header-cell-style="{ backgroundColor: '#f5f7fa', lineHeight: '30px' }">
+  <template slot="table-columns">
     <el-table-column prop="tableIndex" label="序号" width="50" />
-    <!--el-table columns-->
-    <el-table-column label="操作" width="100" align="center">
-        <template slot-scope="scope">
-          <el-button type="primary" circle icon="el-icon-edit" @click="editRecord(scope.row)" title="编辑" />
-          <el-button type="danger" circle icon="el-icon-delete" @click="deleteRecord(scope.row)" title="删除" />
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-table-column label="操作" width="90" header-align="center" align="right">
+      <template slot-scope="scope">
+        <el-button type="danger" circle icon="el-icon-delete" @click="deleteRecord(scope.row)" title="删除" />
+      </template>
+    </el-table-column>
   </template>
   <template slot="dialogs">
-      <case-dialog :change-data.sync="selectData" />
-      <detail-dialog :visible.sync="isDetailVisible" :id="detailId" type="case" />
+    <!--dialogs-->
   </template>
-</TablePage>
+</gt-table-tpl>
 ```
+```javascript
+// script部分
+import { GtTableTplMIXIN } from '@framework/ui';
+export default{
+  ...
+  mixins: [GtTableTplMIXIN],
+}
+```
+
+### 使用说明
+由于是模版类组件所以主要对外提供slot，以及mixins内部预置的方法,一般情况下开发者只需配置table 上部分的查询表单，以及table的列即可完成一个完整的查询列表页。
+
+### 组件收益
+每用一次减少预计300行代码量，可快速开发出应用主体功能，使5小时左右的开发工作减少至1小时左右。基本上免测试。

@@ -56,6 +56,9 @@ export default {
               total
             };
           }
+          if (this.searchSuccessHandler) {
+            this.searchSuccessHandler();
+          }
         }
       }, () => {
 
@@ -115,6 +118,7 @@ export default {
   watch: {
     searchData: {
       handler() {
+        this.pagination.current = 1;
         this.search();
       },
       deep: true

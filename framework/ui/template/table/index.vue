@@ -1,5 +1,5 @@
 <template>
-  <div class="gt-table-template">
+  <div :class="['gt-table-template', tplClass]">
     <div class="gt-table-template__top-block">
       <slot name="top-block">
         <el-form inline class="search-form" :model="tableTplMIXIN.searchData" refs="searchForm" @change="tableTplMIXIN.search()">
@@ -35,21 +35,42 @@
 <script>
 export default {
   inject: ['tableTplMIXIN'],
-  name: 'GtTableTpl'
+  name: 'GtTableTpl',
+  props: {
+    /**
+     * @description enum page, dialog
+     *
+     */
+    mode: {
+      type: String,
+      default: 'page'
+    }
+  },
+  computed: {
+    tplClass() {
+      return `gt-table-template--${this.mode}`;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .gt-table-template{
-  position: absolute;
-  top: 84px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   display: flex;
   flex-direction: column;
+}
+
+.gt-table-template--page{
+  position: absolute;
+  top: 84px;
   padding: 30px 30px 2px 30px;
-  flex-direction: column;
+}
+
+.gt-table-template--dialog{
+  
 }
 
 .gt-table-template__top-block{
