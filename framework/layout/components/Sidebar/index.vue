@@ -20,7 +20,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import variables from '@/styles/variables.scss';
+import variables from '../../../styles/variables.scss';
 import './index.scss';
 import SidebarItem from './SidebarItem';
 
