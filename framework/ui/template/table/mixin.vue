@@ -86,7 +86,11 @@ export default {
       const el = this.$el.querySelector('.gt-table-template__search-result');
       if (el) {
         const { height } = el.getBoundingClientRect();
-        this.tableHeight = height - 75;
+        if (this.pagination) {
+          this.tableHeight = height - 75;
+        } else {
+          this.tableHeight = height - 10;
+        }
       }
     },
 
