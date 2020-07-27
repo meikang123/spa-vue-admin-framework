@@ -8,7 +8,11 @@
     </sidebar>
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+        <navbar>
+          <template slot="dropdown-items">
+            <slot name="navbar-dropdown" />
+          </template>
+        </navbar>
         <tags-view v-if="needTagsView" />
       </div>
       <app-main />

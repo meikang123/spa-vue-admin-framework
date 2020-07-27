@@ -8,6 +8,7 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
+      <slot />
       <template v-if="device!=='mobile'">
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
         <!--
@@ -25,9 +26,11 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <!-- <el-dropdown-item disabled style="color:#606266">{{ userInfo.real_name }}</el-dropdown-item> -->
-          <router-link to="/">
-            <el-dropdown-item>控制面板</el-dropdown-item>
-          </router-link>
+          <slot name="dropdown-items">
+            <router-link to="/">
+              <el-dropdown-item>控制面板</el-dropdown-item>
+            </router-link>
+          </slot>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退 出</span>
           </el-dropdown-item>
