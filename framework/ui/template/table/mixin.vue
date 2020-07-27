@@ -2,6 +2,11 @@
 let resizeTimeOut = null;
 
 export default {
+  provide() {
+    return {
+      tableTplMIXIN: this
+    };
+  },
   data() {
     return {
       searchData: {
@@ -51,6 +56,9 @@ export default {
               total
             };
           }
+          if (this.searchSuccessHandler) {
+            this.searchSuccessHandler();
+          }
         }
       }, () => {
 
@@ -74,9 +82,12 @@ export default {
     },
 
     setTableHeight() {
-      const el = this.$refs.tablePage.$el.querySelector('.search-result');
-      const { height } = el.getBoundingClientRect();
-      this.tableHeight = height - 75;
+      // tableT
+      const el = this.$el.querySelector('.gt-table-template__search-result');
+      if (el) {
+        const { height } = el.getBoundingClientRect();
+        this.tableHeight = height - 75;
+      }
     },
 
     documentResizeHandler() {
@@ -93,7 +104,6 @@ export default {
     this.$nextTick(() => {
       this.setTableHeight();
     });
-
     window.addEventListener('resize', this.documentResizeHandler);
   },
 
@@ -108,6 +118,7 @@ export default {
   watch: {
     searchData: {
       handler() {
+        this.pagination.current = 1;
         this.search();
       },
       deep: true

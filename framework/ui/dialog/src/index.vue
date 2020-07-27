@@ -19,7 +19,7 @@
     </div>
     <slot v-if="isShowFooter" slot="footer" class="gt-dialog__footer" name="footer">
       <el-button @click="handleClose">取消</el-button>
-      <el-button @click="handleSave" type="primary">确定</el-button>
+      <el-button @click="handleConfirm" type="primary">确定</el-button>
     </slot>
   </el-dialog>
 </template>
@@ -113,9 +113,8 @@ export default {
       this.$emit('close');
       this.$emit('update:visible', false);
     },
-    handleSave() {
-      this.$emit('save');
-      this.$emit('update:visible', false);
+    handleConfirm() {
+      this.$emit('confirm');
     }
   }
 };
