@@ -122,7 +122,9 @@ export default {
   watch: {
     searchData: {
       handler() {
-        this.pagination.current = 1;
+        if (this.pagination) {
+          this.pagination.current = 1;
+        }
         this.search();
       },
       deep: true
