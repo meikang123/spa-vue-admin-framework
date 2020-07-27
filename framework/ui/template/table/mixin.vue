@@ -89,7 +89,7 @@ export default {
         if (this.pagination) {
           this.tableHeight = height - 75;
         } else {
-          this.tableHeight = height - 10;
+          this.tableHeight = height - 20;
         }
       }
     },
