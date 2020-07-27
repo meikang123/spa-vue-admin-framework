@@ -1,18 +1,35 @@
 // base color
-$primayColor: #606266;
-$contentColor: #909399;
+$blue:#324157;
+$light-blue:#3A71A8;
+$red:#C03639;
+$pink: #E65D6E;
+$green: #30B08F;
+$tiffany: #4AB7BD;
+$yellow:#FEC171;
+$panGreen: #30B08F;
 
-$--basiclayout-left-background-color: red !default; //左侧菜单主背景色
+// sidebar
+$menuText:#bfcbd9;
+$menuActiveText:#409EFF;
+$subMenuActiveText:#f4f4f5; // https://github.com/ElemeFE/element/issues/12951
 
-// 左侧菜单
-$--sidermenu-menu-item-front-color: #fff !default; //菜单项正常字体颜色
-$--sidermenu-menu-item-hover-front-color: #fff !default; //hover菜单字体色
-$--sidermenu-menu-item-hover-background: rgba(232, 76, 125, .4) !default; //hover菜单字体色
+$menuBg:#304156;
+$menuHover:#263445;
 
-$--sidermenu-menu-item-active-front-color: #fff !default; //选中的菜单字体色
-$--sidermenu-menu-item-active-background: rgba(232, 76, 125, .4) !default; //选中的菜单背景色 
-$--sidermenu-menu-item-active-hover-front-color: #fff !default; //选中菜单hover
-$--sidermenu-menu-item-active-hover-background: rgba(232, 76, 125, .4) !default; //选中菜单hover
+$subMenuBg:#1f2d3d;
+$subMenuHover:#001528;
 
-$--sidermenu-submenu-opened-front-color: #fff !default; //菜单打开的父菜单字体色
-$--sidermenu-width: 180px;
+$sideBarWidth: 180px;
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+}

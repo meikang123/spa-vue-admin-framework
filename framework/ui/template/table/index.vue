@@ -69,10 +69,6 @@ export default {
   padding: 30px 30px 2px 30px;
 }
 
-.gt-table-template--dialog{
-  
-}
-
 .gt-table-template__top-block{
   display: flex;
   justify-content: space-between;
