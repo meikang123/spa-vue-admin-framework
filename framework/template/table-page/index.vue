@@ -62,11 +62,6 @@ export default {
   flex-direction: column;
   padding: 30px 30px 2px 30px;
   flex-direction: column;
-  .top-block{
-    display: flex;
-    justify-content: space-between;
-  }
-
   .search-form{
     width: 100%;
     .opt-btns-wrap{
