@@ -1,8 +1,8 @@
 <template>
   <div>
-    <slot v-if="hasAuth()"></slot>
+    <slot v-if="hasAuth()" />
     <template v-else>
-      <slot v-if="hasCustomNoAuthComponent" name="noauth"></slot>
+      <slot v-if="hasCustomNoAuthComponent" name="noauth" />
       <div v-else>
         <!--TODO 默认没有权限组件 -->
         没有权限
@@ -14,16 +14,17 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'mtl-auth',
+  name: 'giant-auth',
   data() {
     return {
-      hasCustomNoAuthComponent: this.$slots.noauth,
+      hasCustomNoAuthComponent: this.$slots.noauth
     };
   },
   props: {
     code: {
-      type: Array || String,
-    },
+      type: [Array, String],
+      required: true
+    }
   },
 
   created() {
@@ -37,13 +38,13 @@ export default {
   methods: {
     hasAuth() {
       return this.codes.includes(this.code);
-    },
+    }
   },
 
   computed: {
     ...mapGetters({
-      codes: 'USER_GET_AUTHORIZATION_CODES',
-    }),
-  },
+      codes: 'USER_GET_AUTHORIZATION_CODES'
+    })
+  }
 };
 </script>

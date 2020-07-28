@@ -38,19 +38,19 @@ import '@framework/auth';
 ```html
 
 <!-- 举例1，使用默认无权显示组件 -->
-<mtl-auth code="权限点">
+<giant-auth code="权限点">
   <component-x></component-x>
-</mtl-auth>
+</giant-auth>
 
 <!-- 举例2，使用自定义无权显示组件 -->
-<mtl-auth code="权限点">
+<giant-auth code="权限点">
   <component-x></component-x>
   <template slot="noauth">
     <div>
       D系统： 您没权限请联系XXXX。
     </div>
   </template>
-</mtl-auth>
+</giant-auth>
 ```
 props:
 
@@ -62,5 +62,5 @@ props:
 
 #### 2.通过指令方式实现
 ```html
-<component-x v-mtl-auth="权限点"></component-x>
+<component-x v-giant-auth="权限点"></component-x>
 ```

@@ -4,5 +4,5 @@ import './auth-directives';
 
 export {
   routeDeepFilter,
-  Auth,
+  Auth
 };
