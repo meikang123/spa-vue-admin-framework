@@ -2,6 +2,8 @@
 @import './normalize.scss';
 @import '../layout/style.scss';
 @import './element-ui.rewrite.scss';
+@import './mixin.scss';
+@import './transition.scss';
 
 * {
   margin: 0;
