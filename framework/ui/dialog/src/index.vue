@@ -132,16 +132,16 @@ $primary: #409eff;
   }
   &.gt-dialog--primary {
     /deep/ .el-dialog__header {
-      background-color: #f8f8f8;
-      border-bottom: 1px solid #eee;
+      background-color: $primary;
+      color: #fff;
     }
     /deep/ .el-dialog__headerbtn {
       top: 11px;
       right: 11px;
       .el-dialog__close {
-        color: #333;
+        color: #000;
         &:hover {
-          color: $primary;
+          color: #fff;
         }
       }
     }
