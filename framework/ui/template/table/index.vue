@@ -13,7 +13,6 @@
       </slot>
     </div>
     <div class="gt-table-template__search-result" v-loading.sync="tableTplMIXIN.reqLoading" :element-loading-text="tableTplMIXIN.reqLoadingText || '数据加载中'">
-      <div style="height: 10px;" />
       <slot name="table">
         <el-table border :data="tableTplMIXIN.resultData.list" :max-height="tableTplMIXIN.tableHeight" style="width: 100%" stripe :header-cell-style="{ backgroundColor: '#f5f7fa', lineHeight: '30px' }">
           <slot name="table-columns">
@@ -61,6 +60,10 @@ export default {
   right: 0px;
   display: flex;
   flex-direction: column;
+}
+
+.gt-table-template__top-block{
+  margin-bottom: 5px;
 }
 
 .gt-table-template--page{
