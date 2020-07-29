@@ -22,7 +22,7 @@ export default {
     const vnodes = [];
 
     if (icon) {
-      const svgIcon = createElement('svg-icon', {
+      const svgIcon = createElement('gt-svg-icon', {
         attrs: {
           'icon-class': icon
         }

@@ -18,5 +18,5 @@ export {
   Cookies,
   EventBus,
   Browser,
-  Transform,
+  Transform
 };

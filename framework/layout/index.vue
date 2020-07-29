@@ -38,6 +38,15 @@ export default {
       fixedHeader: true
     };
   },
+
+  created() {
+    const attrsNeedTagsView = this.$attrs['need-tags-view'];
+    
+    if (typeof attrsNeedTagsView !== 'undefined') {
+      this.needTagsView = attrsNeedTagsView;
+    }
+  },
+
   computed: {
     ...mapState({
       sidebar: state => state.app.sidebar,
