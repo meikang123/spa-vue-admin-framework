@@ -9,9 +9,13 @@
 </template>
 <script>
 import 'mavon-editor/dist/markdown/github-markdown.min.css';
+import mavonEditor from 'mavon-editor';
 
 export default {
-  name: 'Markdown',
+  name: 'gt-markdown-editor',
+  components: {
+    mavonEditor
+  },
   data() {
     return {
       value: '',

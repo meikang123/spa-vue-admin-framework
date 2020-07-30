@@ -1,4 +1,6 @@
-import MarkDown from './src/index';
+import GtMarkDownEditor from './src/editor';
 
 
-export default MarkDown;
+export {
+  GtMarkDownEditor
+};
