@@ -139,7 +139,7 @@ $primary: #409eff;
       top: 11px;
       right: 11px;
       .el-dialog__close {
-        color: #000;
+        color: #fff;
         &:hover {
           color: #fff;
         }

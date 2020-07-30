@@ -1,6 +1,6 @@
 import { goLogin, goLogout } from '@/api/user';
-import { authRoutes } from '@/router/index';
-
+import { defaultRoutes } from '@/router/index';
+import { isArrayEqu } from '@/utils/base';
 /*
 * 获取登录信息
 * */
@@ -45,13 +45,6 @@ const filterRoutes = (routes, roles) => {
 };
 
 
-const state = {
-  token: getToken(),
-  info: {}, // 用户信息
-  roles: null,
-  routes: []
-};
-
 const mutations = {
   CHANGE_USER: (state, info) => {
     state.info = info;
@@ -62,6 +55,7 @@ const mutations = {
   },
   SET_ROLES: state => {
     state.roles = ['admin'];
+    // state.roles = [];
   }
 };
 
@@ -104,13 +98,23 @@ const actions = {
       resolve(state);
     });
   },
-  generateRoutes({ commit, state }) {
+  generateRoutes({ commit }) {
     return new Promise((resolve, reject) => {
-      const addRoute = filterRoutes(authRoutes, state.roles);
-      commit('SET_ROUTES', addRoute);
-      resolve(addRoute || []);
+      !isArrayEqu(state.routes, defaultRoutes) && commit('SET_ROUTES', defaultRoutes);
+      // const addRoute = filterRoutes(authRoutes, state.roles);
+      commit('SET_ROUTES', defaultRoutes);
+      // resolve(addRoute || []);
+      resolve();
     });
   }
+};
+
+
+const state = {
+  token: getToken(),
+  info: {}, // 用户信息
+  roles: null,
+  routes: []
 };
 
 export default {

@@ -1,15 +1,4 @@
-/* eslint-disable no-shadow */
 import Cookies from 'js-cookie';
-
-const state = {
-  sidebar: {
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
-    withoutAnimation: false
-  },
-  device: 'desktop',
-  // size: Cookies.get('size') || 'mini'
-  size: 'normal'
-};
 
 const mutations = {
   TOGGLE_SIDEBAR: state => {
@@ -48,6 +37,16 @@ const actions = {
   setSize({ commit }, size) {
     commit('SET_SIZE', size);
   }
+};
+
+const state = {
+  sidebar: {
+    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
+    withoutAnimation: false
+  },
+  device: 'desktop',
+  // size: Cookies.get('size') || 'mini'
+  size: 'normal'
 };
 
 export default {
