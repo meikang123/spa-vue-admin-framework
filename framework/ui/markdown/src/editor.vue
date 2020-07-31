@@ -8,8 +8,14 @@
   />
 </template>
 <script>
-import 'mavon-editor/dist/markdown/github-markdown.min.css';
-import mavonEditor from 'mavon-editor';
+import { Browser } from '@framework/utils';
+import { mavonEditor } from 'mavon-editor';
+import { PUBLIC_STATIC_THIRDPARTY_PATH } from '@framework/config/consts';
+
+const baseUrl = `${PUBLIC_STATIC_THIRDPARTY_PATH}/markdown`;
+
+Browser.loadResources(`${baseUrl}/markdown/github-markdown.min.css`);
+Browser.loadResources(`${baseUrl}/css/index.css`);
 
 export default {
   name: 'gt-markdown-editor',
@@ -55,7 +61,7 @@ export default {
         subfield: true, // 单双栏模式
         preview: true // 预览
       },
-      baseUrl: '/static/thirdparty/markdown',
+      baseUrl,
       externalLink: {
         markdown_css: false, // () => `${this.baseUrl}/markdown/github-markdown.min.css`,
         hljs_js: () => `${this.baseUrl}/highlightjs/highlight.min.js`,
@@ -63,7 +69,6 @@ export default {
         hljs_lang: lang => `${this.baseUrl}/highlightjs/languages/${lang}.min.js`,
         katex_css: () => `${this.baseUrl}/katex/katex.min.css`,
         katex_js: () => `${this.baseUrl}/katex/katex.min.js`
-
       }
     };
   },

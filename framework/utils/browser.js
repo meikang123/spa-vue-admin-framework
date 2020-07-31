@@ -5,7 +5,7 @@
  */
 
 import Cookies from 'js-cookie';
-import { APP_AUTH_TOKEN } from '../global/consts';
+import { APP_AUTH_TOKEN } from '../config/consts';
 import EventBus from './eventbus';
 import { AppEventTypeEnum } from '../enums';
 /**
@@ -22,12 +22,12 @@ const openNewWindow = (url, params = {}) => {
  * @param {object} res - 文件下载返回的response
  * @TODO 待优化
  */
-const fileDownload = (res) => {
+const fileDownload = res => {
   const blob = res.data;
   const { headers: { 'content-disposition': disposition } } = res;
   const reader = new FileReader();
   reader.readAsDataURL(blob);
-  reader.onload = (e) => {
+  reader.onload = e => {
     const fileName = decodeURI(disposition.match(/attachment;filename=(.*)/)[1]);
     const elementA = document.createElement('a');
     elementA.download = fileName;
@@ -104,7 +104,7 @@ const WindowResources = [];
  * @param {function} callback 回调函数，只适用于js
  * @param {boolean} noLoad 跳过加载直接执行回调
  */
-const mtlLoadResources = (src, callback, noLoad) => {
+const loadResources = (src, callback, noLoad) => {
   if (WindowResources.includes(src) && callback && typeof callback === 'function') {
     callback();
     return;
@@ -158,5 +158,5 @@ export default {
   toApp,
   checkLogin,
   fileDownload,
-  mtlLoadResources,
+  loadResources
 };
