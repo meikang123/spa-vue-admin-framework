@@ -1,155 +1,64 @@
-### 07-02
-BY 沈展平
-### gt-select 方案设计及实现
+gt-select
+===
+>AUTHOR: 沈展平 07-02
 
+#### 示例代码
 
+```html
+<!--静态数据方式-->
+<gt-select
+  :defaultOptions="options"
+  v-model="value"
+  :placeholder="'请选择城市'"
+/>
 
-## 静态数据方式
+<!--接口数据方式-->
+<gt-select
+  :requestService="this.$api.City.getList"
+  v-model="searchData.cityId"
+  :placeholder="'请选择城市'"
+/>
+
+<!--接口数据缓存方式-->
+<gt-select
+  :use-request-cache="true"
+  :request-service="this.$api.City.getList"
+  v-model="searchData.cityId"
+  :placeholder="'请选择城市'"
+/>
 ```
-<template>
-  <gt-select
-    :defaultOptions="options"
-    v-model="value"
-    :placeholder="'请选择城市'"
-  />
-</template>
-<script>
-  export default {
-    data() {
-      return {
-        options: [
-          {
-            value: '1',
-            label: '北京'
-          }, {
-            value: '2',
-            label: 上海'
-          }
-        ],
-        value: ''
-      };
-    }
-  };
-</script>
 
-```
-## 普通接口方式
-```
-<template>
-  <gt-select
-    :requestService="ProductService"
-    v-model="value"
-    :placeholder="'请选择城市'"
-  />
-</template>
-<script>
-  export default {
-    data() {
-      return {
-        value: '',
-        ProductService: () => {
-        // mock 接口返回
-          return new Promise((res, rej) => {
-            const obj = {
-              code: 0,
-              data: {
-                data: [
-                  {
-                    id: 'guangzhou',
-                    name: '广州'
-                  },
-                  {
-                    id: 'shenzhen',
-                    name: '深圳'
-                  }
-                ]
-              }
-            };
-            res(obj);
-          });
-        }
-      };
-    }
-  };
-</script>
+#### 解决的问题
 
-```
-## 缓存接口方式
-```
-<template>
-  <gt-select
-    :useRequestCache="true"
-    :requestService="ProductService"
-    v-model="value3"
-    :placeholder="'请选择城市'"
-  />
-</template>
-<script>
-  export default {
-    data() {
-      return {
-        value: '',
-        ProductService: () => {
-        // mock 接口返回
-          return new Promise((res, rej) => {
-            const obj = {
-              code: 0,
-              data: {
-                data: [
-                  {
-                    id: 'guangzhou',
-                    name: '广州'
-                  },
-                  {
-                    id: 'shenzhen',
-                    name: '深圳'
-                  }
-                ]
-              }
-            };
-            res(obj);
-          });
-        }
-      };
-    }
-  };
-</script>
+*  封装options的生成过程
+*  采用cache方式对远程结果提供缓存实现
+*  一定程度上可以对后端接口数据形成约束
 
-```
-解决问题
+#### 使用说明
 
-1.  el-select 没有接口模式请求，每次使用接口请求 options 需要重复编写。
-2.  添加使用配置读取 options 的功能
+数据源获取方式: 以下2选一
 
-使用说明
+> 静态数据方式
 
----必须选择一种方式获取options的值---
+defaultOptions 传入静态数据
 
->静态数据方式
+> 普通接口方式
 
-1. defaultOptions 传入静态数据
+requestService 传入请求接口
 
->普通接口方式
+#### props 属性
 
-1. requestService 传入请求接口
-
->缓存接口方式
-
-1. requestService 传入请求接口
-2. useRequestCache 传入布尔值,决定是否使用接口缓存
-
-
-
-
->props
+> 注意：设置了 requestService 参数之后认为数据源是远程的，而设置defaultOptions有两种情况：
+*  1.数据源为本地数据，无需设置 requestService
+*  2.defaultOptions仅用于回填数据的显示，搜索时仍使用远程接口， 这种情况下 requestService 需要设置为远程接口方法。 eg. this.$api.City.getList
 
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | --- | --- | --- | --- | --- |
-| defaultOptions | 静态数据 | array | —— | [] |
-| requestService | 请求接口 | promise | —— | —— |
-| useRequestCache | 是否使用接口缓存 | Boolean | true/false | false |
-| value | 绑定值 | boolean / string / number| —— | —— |
-| placeholder | 占位符 | string | —— | 请选择 |
-| multiple | 多选 | boolean | —— | false |
+| default-options | 静态数据 | Array | —— | [] |
+| request-service | 请求接口 | Promise | —— | —— |
+| use-request-cache | 是否使用接口缓存 | Boolean | true/false | false |
+| value | 绑定值 | Boolean / String / Number/ Array| —— | —— |
+| placeholder | 占位符 | String | —— | 请选择 |
+| multiple | 多选 | Boolean | —— | false |
 

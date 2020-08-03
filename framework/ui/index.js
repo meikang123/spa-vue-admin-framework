@@ -31,6 +31,7 @@ const install = Vue => {
   });
   
   Vue.prototype.GtConfirm = GtConfirm;
+  Vue.prototype.$gtconfirm = GtConfirm;
 };
 
 

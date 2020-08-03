@@ -1,4 +1,6 @@
-### gt-dialog 公共弹窗
+gt-dialog 公共弹窗
+===
+>AUTHOR: lukunkun
 
 ### 示例代码
 ```
@@ -30,7 +32,7 @@
     1. 支持所有element-dialog方法
     2. 增加props属性
 
-> props 属性
+#### props 属性
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | --- | --- | --- | --- | --- |

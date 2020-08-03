@@ -95,3 +95,14 @@
     }
   }
 }
+
+// MessageBox
+.el-message-box__wrapper{
+  .gt-confirm{
+    vertical-align: unset;
+    position: absolute;
+    top: 20%;
+    right: 50%;
+    margin-right: -210px;
+  }
+}
