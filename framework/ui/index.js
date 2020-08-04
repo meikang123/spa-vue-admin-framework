@@ -4,7 +4,7 @@ import GtDialog from './dialog';
 import GtPagination from './pagination';
 import GtConfirm from './confirm';
 import { GtTableTpl, GtTableTplMIXIN } from './template';
-import GtSvgIcon from './SvgIcon';
+import GtSvgIcon from './svgicon';
 
 export {
   GtFormItem,

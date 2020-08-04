@@ -23,8 +23,8 @@ export default {
 
     if (icon) {
       const svgIcon = createElement('gt-svg-icon', {
-        attrs: {
-          'icon-class': icon
+        props: {
+          'icon-name': icon
         }
       });
       vnodes.push(svgIcon);

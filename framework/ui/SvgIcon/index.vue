@@ -1,12 +1,6 @@
-<style lang="scss" scoped>
-  .svg-icon {
-    width: 1em; height: 1em; vertical-align: -0.15em; fill: currentColor; overflow: hidden;
-  }
-</style>
-
 <template>
-  <svg :class="svgClass" aria-hidden="true" v-on="$listeners">
-    <use :xlink:href="iconName" />
+  <svg aria-hidden="true" v-on="$listeners" class="svg-icon">
+    <use :xlink:href="`#icon-${iconName}`" />
   </svg>
 </template>
 
@@ -14,25 +8,19 @@
 export default {
   name: 'GtSvgIcon',
   props: {
-    iconClass: {
+    iconName: {
       type: String,
       required: true
-    },
-    className: {
-      type: String,
-      default: ''
-    }
-  },
-  computed: {
-    iconName() {
-      return `#icon-${this.iconClass}`;
-    },
-    svgClass() {
-      if (this.className) {
-        return `svg-icon ${this.className}`;
-      }
-      return 'svg-icon';
     }
   }
 };
 </script>
+<style lang="scss" scoped>
+  .svg-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+</style>

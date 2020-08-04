@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gt-svg-icon :icon-class="isFullscreen?'exit-fullscreen':'fullscreen'" @click="click" />
+    <gt-svg-icon :icon-name="isFullscreen?'exit-fullscreen':'fullscreen'" @click="click" />
   </div>
 </template>
 

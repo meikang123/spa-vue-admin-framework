@@ -38,8 +38,7 @@ export default {
   props: {
     /**
      * @description enum page, dialog
-     *
-     */
+    * */
     mode: {
       type: String,
       default: 'page'

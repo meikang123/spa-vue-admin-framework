@@ -1,6 +1,6 @@
 gt-dialog 公共弹窗
 ===
->AUTHOR: lukunkun
+>author: lukunkun
 
 ### 示例代码
 ```
