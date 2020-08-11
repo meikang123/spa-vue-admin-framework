@@ -220,6 +220,13 @@ class Enum {
     return options;
   }
 
+  /**
+   * @description 用于select组件的 options 简写
+   */
+  options() {
+    return this.toSelectOptions();
+  }
+
   // { label: 'Apple', value: 'Apple' },
   toCheckArray(withAll) {
     let array = [];

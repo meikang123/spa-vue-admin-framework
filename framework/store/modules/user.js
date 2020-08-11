@@ -1,6 +1,5 @@
-import { goLogin, goLogout } from '@/api/user';
-import { defaultRoutes } from '@/router/index';
-import { isArrayEqu } from '@/utils/base';
+import { authRoutes } from '@/router/index';
+import { Api } from '@/api';
 /*
 * 获取登录信息
 * */
@@ -45,6 +44,13 @@ const filterRoutes = (routes, roles) => {
 };
 
 
+const state = {
+  token: getToken(),
+  info: {}, // 用户信息
+  roles: null,
+  routes: []
+};
+
 const mutations = {
   CHANGE_USER: (state, info) => {
     state.info = info;
@@ -55,7 +61,6 @@ const mutations = {
   },
   SET_ROLES: state => {
     state.roles = ['admin'];
-    // state.roles = [];
   }
 };
 
@@ -63,7 +68,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo;
     return new Promise((resolve, reject) => {
-      goLogin({ name: username, password }).then(res => {
+      Api.User.doLogin({ name: username, password }).then(res => {
         if (res.code === 0) {
           setToken(JSON.stringify(res.data));
           commit('CHANGE_USER', res.data);
@@ -78,7 +83,7 @@ const actions = {
   },
   logout({ commit }) {
     return new Promise((resolve, reject) => {
-      goLogout().then(res => {
+      Api.User.goLogout().then(res => {
         if (res.code === 0) {
           delToken();
           commit('CHANGE_USER', {});
@@ -91,6 +96,13 @@ const actions = {
       });
     });
   },
+  resetToken({ commit }) {
+    return new Promise(resolve => {
+      delToken();
+      commit('CHANGE_USER', {});
+      resolve();
+    });
+  },
   getRoles({ commit, state }, info) {
     return new Promise((resolve, reject) => {
       commit('CHANGE_USER', info);
@@ -98,23 +110,13 @@ const actions = {
       resolve(state);
     });
   },
-  generateRoutes({ commit }) {
+  generateRoutes({ commit, state }) {
     return new Promise((resolve, reject) => {
-      !isArrayEqu(state.routes, defaultRoutes) && commit('SET_ROUTES', defaultRoutes);
-      // const addRoute = filterRoutes(authRoutes, state.roles);
-      commit('SET_ROUTES', defaultRoutes);
-      // resolve(addRoute || []);
-      resolve();
+      const addRoute = filterRoutes(authRoutes, state.roles);
+      commit('SET_ROUTES', addRoute);
+      resolve(addRoute || []);
     });
   }
-};
-
-
-const state = {
-  token: getToken(),
-  info: {}, // 用户信息
-  roles: null,
-  routes: []
 };
 
 export default {

@@ -1,8 +1,10 @@
 <template>
-  <section class="app-main">
-    <keep-alive :include="cachedViews">
-      <router-view :key="key" />
-    </keep-alive>
+  <section class="app-main" v-loading="!Enums">
+    <template v-if="Enums">
+      <keep-alive :include="cachedViews">
+        <router-view :key="key" />
+      </keep-alive>
+    </template>
   </section>
 </template>
 <script>

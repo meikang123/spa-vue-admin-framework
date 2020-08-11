@@ -93,9 +93,20 @@ const configRoutesToRoutes = (routeFiles: any) => {
   return configRoutes || [];
 };
 
+/**
+ * @description 下化线命名转驼峰 eg.case_type to caseType
+ * @param str eg.case_type
+ */
+const toTf = (str:String) => {
+  const reg = /_(\w)/g;
+  const result = str.replace(reg, ($0, $1) => $1.toUpperCase());
+  return result;
+};
+
 
 export default {
   formatDate,
   objectToFormData,
-  configRoutesToRoutes
+  configRoutesToRoutes,
+  toTf
 };
