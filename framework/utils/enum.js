@@ -117,7 +117,8 @@ class Enum {
    * @return {string} 对应的文字
    */
   getTextFromValue(value) {
-    return this.fromValue(value) ? this.fromValue(value).text : '--';
+    const element = this.fromValue(value);
+    return element ? element.text : '--';
   }
 
   /**
@@ -127,9 +128,8 @@ class Enum {
    * @return {string} 对应的文字
    */
   getTextFromAlias(alias) {
-    if (alias) {
-      return this.fromAlias(alias).text;
-    }
+    const element = this.fromAlias(alias);
+    return element ? element.text : '--';
   }
 
   /**
@@ -139,7 +139,7 @@ class Enum {
    * @return {number} 对应的数值
    */
   getValueFromAlias(alias) {
-    return this.fromAlias(alias).value;
+    return (this.fromAlias(alias) || {}).value;
   }
 
   /**
@@ -149,7 +149,7 @@ class Enum {
    * @return {number} 对应的数值
    */
   getValueFromText(text) {
-    return this.fromText(text).value;
+    return (this.fromText(text) || {}).value;
   }
 
   /**
@@ -159,7 +159,7 @@ class Enum {
    * @return {string} 对应的别名
    */
   getAliasFromValue(value) {
-    return this.fromValue(value).alias;
+    return (this.fromValue(value) || {}).alias;
   }
 
   /**
@@ -169,7 +169,7 @@ class Enum {
    * @return {string} 对应的别名
    */
   getAliasFromText(text) {
-    return this.fromText(text).alias;
+    return (this.fromText(text) || {}).alias;
   }
 
   /**
