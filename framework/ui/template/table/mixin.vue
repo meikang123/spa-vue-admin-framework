@@ -36,12 +36,20 @@ export default {
       const { SearchService } = this;
       this.reqLoading = true;
       const paginationParams = pagination || this.pagination;
-      const { current: page, size } = paginationParams;
-      const params = {
-        ...this.searchData,
-        page,
-        page_size: size
+      let params = {
+        ...this.searchData
       };
+
+      //
+      if (paginationParams) {
+        const { current: page, size } = paginationParams;
+        params = {
+          ...params,
+          page,
+          page_size: size
+        };
+      }
+      
 
       SearchService.getList(params).then(resource => {
         const { data: { data, page: server_page, page_size, total } } = resource;
@@ -50,7 +58,8 @@ export default {
             tableIndex: index + 1,
             ...record
           }));
-          if (server_page) {
+          // 如果预置 pagination 为 false/null pagination将做为无pagination table的标识
+          if (server_page && this.pagination) {
             this.pagination = {
               current: server_page,
               size: page_size,
