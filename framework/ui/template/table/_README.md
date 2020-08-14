@@ -63,6 +63,9 @@ export default{
 
 #### 1. 响应式数据
 
+
+  *如果是非分页表格的话请将pagination预置为 null/false*
+
   ```javascript
     // 查询参数
     searchData
