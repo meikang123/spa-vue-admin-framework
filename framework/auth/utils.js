@@ -34,7 +34,7 @@ const routeDeepFilter = (routes, codes) => {
       } else {
         nextRoutes.push({
           ...route,
-          children: routeDeepFilter(route.children, codes),
+          children: routeDeepFilter(route.children, codes)
         });
       }
     }
@@ -46,5 +46,5 @@ const other = {};
 
 export {
   routeDeepFilter,
-  other,
+  other
 };

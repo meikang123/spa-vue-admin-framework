@@ -37,7 +37,7 @@ export default {
       top: 0,
       left: 0,
       selectedTag: {},
-      affixTags: [],
+      affixTags: []
     };
   },
   computed: {
@@ -46,7 +46,7 @@ export default {
     },
     routes() {
       return this.$store.state.user.routes;
-    },
+    }
   },
   watch: {
     $route() {
@@ -59,7 +59,7 @@ export default {
       } else {
         document.body.removeEventListener('click', this.closeMenu);
       }
-    },
+    }
   },
   mounted() {
     this.initTags();
@@ -74,14 +74,14 @@ export default {
     },
     filterAffixTags(routes, basePath = '/') {
       let tags = [];
-      routes.forEach((route) => {
+      routes.forEach(route => {
         if (route.meta && route.meta.affix) {
           const tagPath = path.resolve(basePath, route.path);
           tags.push({
             fullPath: tagPath,
             path: tagPath,
             name: route.name,
-            meta: { ...route.meta },
+            meta: { ...route.meta }
           });
         }
         if (route.children) {
@@ -132,7 +132,7 @@ export default {
         const { fullPath } = view;
         this.$nextTick(() => {
           this.$router.replace({
-            path: `/redirect${fullPath}`,
+            path: `/redirect${fullPath}`
           });
         });
       });
@@ -152,7 +152,7 @@ export default {
     },
     closeAllTags(view) {
       this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
-        if (this.affixTags.some((tag) => tag.path === view.path)) {
+        if (this.affixTags.some(tag => tag.path === view.path)) {
           return;
         }
         this.toLastView(visitedViews, view);
@@ -191,8 +191,8 @@ export default {
     },
     closeMenu() {
       this.visible = false;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -44,6 +44,7 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
+  language: Cookies.get('language') || 'zh',
   device: 'desktop',
   // size: Cookies.get('size') || 'mini'
   size: 'normal'

@@ -8,6 +8,7 @@ const getters = {
   routes: state => state.user.routes,
   token: state => state.user.token,
   roles: state => state.user.roles,
-  userInfo: state => state.user.info
+  userInfo: state => state.user.info,
+  language: state => state.app.language
 };
 export default getters;

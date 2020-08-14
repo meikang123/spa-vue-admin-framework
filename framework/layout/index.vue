@@ -9,6 +9,9 @@
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar>
+          <template>
+            <slot name="top-right-menu-items" />
+          </template>
           <template slot="dropdown-items">
             <slot name="navbar-dropdown" />
           </template>
