@@ -1,4 +1,5 @@
 <script>
+import { debounce } from '@framework/utils/utils';
 let resizeTimeOut = null;
 
 export default {
