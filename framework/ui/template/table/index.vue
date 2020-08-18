@@ -68,7 +68,7 @@ export default {
 .gt-table-template--page{
   position: absolute;
   top: 84px;
-  padding: 30px 30px 2px 30px;
+  padding: 15px 15px 2px 15px;
 }
 
 .gt-table-template__search-form{
