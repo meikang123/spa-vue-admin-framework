@@ -14,7 +14,13 @@
     </div>
     <div class="gt-table-template__search-result" v-loading.sync="tableTplMIXIN.reqLoading" :element-loading-text="tableTplMIXIN.reqLoadingText || '数据加载中'">
       <slot name="table">
-        <el-table border :data="tableTplMIXIN.resultData.list" :max-height="tableTplMIXIN.tableHeight" style="width: 100%" stripe :header-cell-style="{ backgroundColor: '#f5f7fa', lineHeight: '30px' }">
+        <el-table
+          border
+          :data="tableTplMIXIN.resultData.list"
+          :max-height="tableTplMIXIN.tableHeight"
+          style="width: 100%"
+          :header-cell-style="{ backgroundColor: '#f5f7fa', lineHeight: '30px' }"
+        >
           <slot name="table-columns">
             <el-table-column prop="tableIndex" label="序号" width="50" />
           </slot>
