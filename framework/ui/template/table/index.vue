@@ -2,7 +2,7 @@
   <div :class="['gt-table-template', tplClass]">
     <div class="gt-table-template__top-block">
       <slot name="top-block">
-        <el-form inline class="search-form" :model="tableTplMIXIN.searchData" refs="searchForm" @change="tableTplMIXIN.search()">
+        <el-form inline class="search-form" :model="tableTplMIXIN.searchData" refs="searchForm">
           <slot name="search-form-items" />
           <slot name="search-form-btns">
             <el-button type="primary" icon="el-icon-search" @click="tableTplMIXIN.search()">搜索</el-button>
