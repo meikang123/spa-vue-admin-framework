@@ -19,10 +19,7 @@
           :data="tableTplMIXIN.resultData.list"
           :max-height="tableTplMIXIN.tableHeight"
           style="width: 100%"
-          :stripe="stripe"
           :header-cell-style="{ backgroundColor: '#f5f7fa', lineHeight: '30px' }"
-          :tree-props="treeProps"
-          :row-key="rowKey"
         >
           <slot name="table-columns">
             <el-table-column prop="tableIndex" label="序号" width="50" />
@@ -51,18 +48,6 @@ export default {
     mode: {
       type: String,
       default: 'page'
-    },
-    treeProps: {
-      type: Object,
-      default: null
-    },
-    rowKey: {
-      type: String,
-      default: undefined
-    },
-    stripe: {
-      type: Boolean,
-      default: true
     }
   },
   computed: {
