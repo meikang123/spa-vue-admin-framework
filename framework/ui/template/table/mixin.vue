@@ -38,6 +38,7 @@ export default {
 
     search(pagination) {
       const { SearchService } = this;
+      if (SearchService) return;
       this.reqLoading = true;
       const paginationParams = pagination || this.pagination;
       let params = {
