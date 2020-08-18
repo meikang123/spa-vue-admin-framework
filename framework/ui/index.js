@@ -5,6 +5,7 @@ import GtPagination from './pagination';
 import GtConfirm from './confirm';
 import { GtTableTpl, GtTableTplMIXIN } from './template';
 import GtSvgIcon from './_svgicon';
+import GTTinyMce from './tinymce';
 
 export {
   GtFormItem,
@@ -13,6 +14,7 @@ export {
   GtPagination,
   GtSvgIcon,
   GtTableTpl,
+  GTTinyMce,
   GtTableTplMIXIN
 };
 
@@ -22,7 +24,8 @@ const components = [
   GtDialog,
   GtPagination,
   GtTableTpl,
-  GtSvgIcon
+  GtSvgIcon,
+  GTTinyMce
 ];
 
 const install = Vue => {

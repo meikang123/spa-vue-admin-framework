@@ -10,9 +10,9 @@
 <script>
 import { Browser } from '@framework/utils';
 import { mavonEditor } from 'mavon-editor';
-import { PUBLIC_STATIC_THIRDPARTY_PATH } from '@framework/config/consts';
+import { THIRDPARTY_PATH } from '@framework/config/consts';
 
-const baseUrl = `${PUBLIC_STATIC_THIRDPARTY_PATH}/markdown`;
+const baseUrl = `${THIRDPARTY_PATH}/markdown`;
 
 Browser.loadResources(`${baseUrl}/markdown/github-markdown.min.css`);
 Browser.loadResources(`${baseUrl}/css/index.css`);
