@@ -1,4 +1,6 @@
 <script>
+import { debounce } from '@framework/utils/utils';
+
 let resizeTimeOut = null;
 
 export default {
@@ -9,6 +11,7 @@ export default {
   },
   data() {
     return {
+      searchFun: null,
       searchData: {
 
       },
@@ -28,12 +31,14 @@ export default {
 
   created() {
     // 业务代码添加 SearchService 到vm 实例
+    this.searchFun = debounce(this.search, 500);
   },
-  
+
   methods: {
 
     search(pagination) {
       const { SearchService } = this;
+      if (!SearchService) return;
       this.reqLoading = true;
       const paginationParams = pagination || this.pagination;
       let params = {
@@ -49,7 +54,7 @@ export default {
           page_size: size
         };
       }
-      
+
 
       SearchService.getList(params).then(resource => {
         const { data: { data, page: server_page, page_size, total } } = resource;
@@ -114,7 +119,7 @@ export default {
 
   },
   mounted() {
-    this.search();
+    this.searchFun();
     this.$nextTick(() => {
       this.setTableHeight();
     });
@@ -126,7 +131,7 @@ export default {
   },
 
   activated() {
-    this.search();
+    this.searchFun();
   },
 
   watch: {
@@ -135,7 +140,7 @@ export default {
         if (this.pagination) {
           this.pagination.current = 1;
         }
-        this.search();
+        this.searchFun();
       },
       deep: true
     }
