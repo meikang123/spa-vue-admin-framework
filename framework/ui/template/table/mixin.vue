@@ -10,7 +10,6 @@ export default {
   },
   data() {
     return {
-      searchFun: null,
       searchData: {
 
       },
@@ -30,9 +29,8 @@ export default {
 
   created() {
     // 业务代码添加 SearchService 到vm 实例
-    this.searchFun = debounce(this.search, 200)
   },
-
+  
   methods: {
 
     search(pagination) {
@@ -52,7 +50,7 @@ export default {
           page_size: size
         };
       }
-
+      
 
       SearchService.getList(params).then(resource => {
         const { data: { data, page: server_page, page_size, total } } = resource;
@@ -86,12 +84,12 @@ export default {
 
     changePage(nextCurrent) {
       this.pagination.current = nextCurrent;
-      this.searchFun(this.pagination);
+      this.search(this.pagination);
     },
 
     changePageSize(nextSize) {
       this.pagination.size = nextSize;
-      this.searchFun(this.pagination);
+      this.search(this.pagination);
     },
 
     setTableHeight() {
@@ -117,7 +115,7 @@ export default {
 
   },
   mounted() {
-    this.searchFun();
+    this.search();
     this.$nextTick(() => {
       this.setTableHeight();
     });
@@ -129,7 +127,7 @@ export default {
   },
 
   activated() {
-    this.searchFun();
+    this.search();
   },
 
   watch: {
@@ -138,7 +136,7 @@ export default {
         if (this.pagination) {
           this.pagination.current = 1;
         }
-        this.searchFun();
+        this.search();
       },
       deep: true
     }
