@@ -2,7 +2,7 @@
   <div :class="['gt-table-template', tplClass]">
     <div class="gt-table-template__top-block">
       <slot name="top-block">
-        <el-form inline class="search-form" :model="tableTplMIXIN.searchData" refs="searchForm" @change="tableTplMIXIN.search()">
+        <el-form inline class="search-form" :model="tableTplMIXIN.searchData" refs="searchForm">
           <slot name="search-form-items" />
           <slot name="search-form-btns">
             <el-button type="primary" icon="el-icon-search" @click="tableTplMIXIN.search()">搜索</el-button>
@@ -14,7 +14,16 @@
     </div>
     <div class="gt-table-template__search-result" v-loading.sync="tableTplMIXIN.reqLoading" :element-loading-text="tableTplMIXIN.reqLoadingText || '数据加载中'">
       <slot name="table">
-        <el-table border :data="tableTplMIXIN.resultData.list" :max-height="tableTplMIXIN.tableHeight" style="width: 100%" stripe :header-cell-style="{ backgroundColor: '#f5f7fa', lineHeight: '30px' }">
+        <el-table
+          border
+          :data="tableTplMIXIN.resultData.list"
+          :max-height="tableTplMIXIN.tableHeight"
+          style="width: 100%"
+          :stripe="stripe"
+          :header-cell-style="{ backgroundColor: '#f5f7fa', lineHeight: '30px' }"
+          :tree-props="treeProps"
+          :row-key="rowKey"
+        >
           <slot name="table-columns">
             <el-table-column prop="tableIndex" label="序号" width="50" />
           </slot>
@@ -42,6 +51,18 @@ export default {
     mode: {
       type: String,
       default: 'page'
+    },
+    treeProps: {
+      type: Object,
+      default: null
+    },
+    rowKey: {
+      type: String,
+      default: undefined
+    },
+    stripe: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
