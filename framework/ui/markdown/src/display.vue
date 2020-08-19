@@ -3,10 +3,10 @@
 </template>
 <script>
 import { Browser } from '@framework/utils';
-import { PUBLIC_STATIC_THIRDPARTY_PATH } from '@framework/config/consts';
+import { THIRDPARTY_PATH } from '@framework/config/consts';
 
 const { loadResources } = Browser;
-const baseUrl = `${PUBLIC_STATIC_THIRDPARTY_PATH}/markdown`;
+const baseUrl = `${THIRDPARTY_PATH}/markdown`;
 loadResources(`${baseUrl}/markdown/github-markdown.min.css`);
 loadResources(`${baseUrl}/highlightjs/styles/github.min.css`);
 

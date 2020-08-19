@@ -96,6 +96,15 @@ const GtFormItem = {
               placeholder={placeholder}
               {...{ attrs: { ...typeOptions } }}
             />;
+        case 'tinymce':
+          return isDetail
+            ? (<span>fdsafds</span>)
+            : <gt-tinymce
+              v-model={this.itemValue}
+              style={{ style }}
+              placeholder={placeholder}
+              {...{ attrs: { ...typeOptions } }}
+            />;
         case 'custom':
           return isDetail
             ? show
