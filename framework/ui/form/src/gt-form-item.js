@@ -118,7 +118,7 @@ const GtFormItem = {
         {
           itemContent()
         }
-        <template slot="label>{ label || defaultLabel }</template>
+        <template slot="label">{ label || defaultLabel }</template>
       </el-form-item>
     );
   }
