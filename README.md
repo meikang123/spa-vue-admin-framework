@@ -43,7 +43,6 @@ npm run clone
 
 cd project
 npm install
-npm run download
 npm run dev 
 
 # 项目启动之后在 ./framework 中代码改变相当于 ./project/src/framework 中的改变
