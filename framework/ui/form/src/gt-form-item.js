@@ -59,7 +59,7 @@ const GtFormItem = {
     }
     const { style = {} } = typeOptions;
 
-    const { show, edit } = this.$slots;
+    const { show, edit, label: defaultLabel } = this.$slots;
     // 用case 解决嵌套过深问题
 
     const itemContent = () => {
@@ -73,7 +73,7 @@ const GtFormItem = {
               style={{ style }}
               {...{ attrs: { ...typeOptions } }}
             />;
-      
+
         case 'select':
           const { itemValue } = this;
           const { defaultOptions = [] } = typeOptions;
@@ -114,10 +114,11 @@ const GtFormItem = {
       }
     };
     return (
-      <el-form-item label={label} prop={prop} rules={rules} style={ itemStyle }>
+      <el-form-item prop={prop} rules={rules} style={ itemStyle }>
         {
-          itemContent
+          itemContent()
         }
+        <template slot="label">{ label || defaultLabel }</template>
       </el-form-item>
     );
   }
