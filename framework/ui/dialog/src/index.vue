@@ -4,11 +4,8 @@
     v-bind="$attrs"
     :visible="visible"
     :top="top"
-    :before-close="handleClose"
-    @open="$emit('open')"
-    @opened="$emit('opened')"
-    @close="$emit('close')"
-    @closed="$emit('closed')"
+    :before-close="beforeClose"
+    v-on="$listeners"
   >
     <div slot="title" class="gt-dialog__title">
       <template v-if="title">{{ title }}</template>
@@ -61,6 +58,13 @@ export default {
     isLoading: {
       type: Boolean,
       default: false
+    },
+    beforeClose: {
+      // 关闭之前的方法
+      // 假如使用visible的sync方法可以不设置
+      // 否则需要设置此方法手动关闭dialog
+      type: Function,
+      default: () => () => {}
     }
   },
   computed: {
@@ -110,7 +114,6 @@ export default {
       if (typeof this.beforeClose === 'function') {
         this.beforeClose();
       }
-      this.$emit('close');
       this.$emit('update:visible', false);
     },
     handleConfirm() {
@@ -139,7 +142,7 @@ $primary: #409eff;
       top: 11px;
       right: 11px;
       .el-dialog__close {
-        color: #fff;
+        color: #ddd;
         &:hover {
           color: #fff;
         }
