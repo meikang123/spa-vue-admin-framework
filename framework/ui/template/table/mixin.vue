@@ -38,7 +38,10 @@ export default {
 
     search(pagination) {
       const { SearchService } = this;
-      if (!SearchService) return;
+      if (!SearchService) {
+        console.error('SearchService not defined !');
+        return;
+      }
       this.reqLoading = true;
       const paginationParams = pagination || this.pagination;
       let params = {
