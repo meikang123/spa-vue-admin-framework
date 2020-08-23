@@ -9,7 +9,7 @@
             <el-button type="primary" @click="tableTplMIXIN.reset()">重置</el-button>
             <el-button type="primary" icon="el-icon-plus" @click="tableTplMIXIN.addRecord()" v-if="tableTplMIXIN.addRecord">新增</el-button>
           </slot>
-          <slot name="top-block-footer"></slot>
+          <slot name="top-block-footer" />
         </el-form>
       </slot>
     </div>
