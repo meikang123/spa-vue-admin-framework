@@ -7,7 +7,7 @@
           <slot name="search-form-btns">
             <el-button type="primary" icon="el-icon-search" @click="tableTplMIXIN.search()">搜索</el-button>
             <el-button type="primary" @click="tableTplMIXIN.reset()">重置</el-button>
-            <el-button type="primary" icon="el-icon-plus" @click="tableTplMIXIN.addRecord()">新增</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="tableTplMIXIN.addRecord()" v-if="tableTplMIXIN.addRecord">新增</el-button>
           </slot>
         </el-form>
       </slot>
