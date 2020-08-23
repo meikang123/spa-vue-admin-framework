@@ -103,7 +103,6 @@ const toTf = (str:String) => {
   return result;
 };
 
-
 export default {
   formatDate,
   objectToFormData,

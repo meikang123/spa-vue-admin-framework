@@ -55,5 +55,12 @@ export const AppEnvTypeEnum = new Enum(
 export const AppEventTypeEnum = new Enum(
   { alias: 'CHECKLOGINFALSE', text: '检查到未登录', value: 'event_login_flase' },
   { alias: 'RE_LOGIN', text: '通知重新登录', value: 'event_re_login' },
-
+);
+/**
+ * @description 表单页模式枚举
+ */
+export const FormPageModeEnum = new Enum(
+  { alias: 'ADD', text: '添加', value: 0 },
+  { alias: 'UPDATE', text: '修改', value: 1 },
+  { alias: 'DETAIL', text: '详情', value: 2 }
 );
