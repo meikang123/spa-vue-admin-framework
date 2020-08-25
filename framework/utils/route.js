@@ -4,18 +4,17 @@ import store from '@/store';
  * 工具函数
  * */
 const code = str => (str.slice(0, 1).toLocaleUpperCase() + str.slice(1));
-const contextView = view => () => import(`@/views/${view}/Form${code(view)}`);
 
 /**
  * @description 添加新增路由
  * */
-export const add = view => {
-  const ContextView = contextView(view);
+export const add = (view, path) => {
+  const Component = () => import(`@/views/${path}/Form${code(view)}`);
   return ({
     name: `add${code(view)}`,
 
     render(h) {
-      return h(ContextView, {
+      return h(Component, {
         props: {
           mode: this.Enums.formMode.ADD
         }
@@ -27,8 +26,8 @@ export const add = view => {
 /**
  * @description 添加更新路由
  * */
-export const update = view => {
-  const ContextView = contextView(view);
+export const update = (view, path) => {
+  const Component = () => import(`@/views/${path}/Form${code(view)}`);
   return ({
     name: `update${code(view)}`,
 
@@ -40,7 +39,7 @@ export const update = view => {
     },
 
     render(h) {
-      return h(ContextView, {
+      return h(Component, {
         props: {
           id: this.id,
           mode: this.Enums.formMode.UPDATE
@@ -53,8 +52,8 @@ export const update = view => {
 /**
  * @description 添加详情路由
  * */
-export const detail = view => {
-  const ContextView = contextView(view);
+export const detail = (view, path) => {
+  const Component = () => import(`@/views/${path}/Form${code(view)}`);
   return ({
     name: `detail${code(view)}`,
 
@@ -66,7 +65,7 @@ export const detail = view => {
     },
 
     render(h) {
-      return h(ContextView, {
+      return h(Component, {
         props: {
           id: this.id,
           mode: this.Enums.formMode.DETAIL
@@ -87,24 +86,31 @@ const routeMerge = (defaultData = {}, data = {}) => {
 };
 
 /**
- * 生成新增、编辑、详情路由页
+ * 生成新增、编辑、详情路由页-- AUD {add, update, detail}
  * @param {string} view- 下对应的生成的文件夹名称
  * @param {string} name - 路由名称
- * @param {object} data - 需要覆盖的配置生成、覆盖对象与路由配置对象结构一致
+ * @param {string} path - 需要加载内容组件的路径
+ * @param {object} config - 需要覆盖的配置生成、覆盖对象与路由配置对象结构一致
  *
  * @return RouteConfig
  * */
-export const routeGenerator = (view, name, data = {}) => {
+export const generateAUDRoute = (view, name, path = '', config = {}) => {
   if (!view || !name) return;
-  const { add: $add, update: $update, detail: $detail } = data;
+  if (typeof path !== 'string') {
+    config = path;
+    path = '';
+  }
+  path = path || 'FormContainer';
+
+  const { add: $add, update: $update, detail: $detail } = config;
   const defaultMeta = {
     activeMenu: `/${view}/index`,
     roles: store.state.user.roles || ['admin']
   };
 
   const _add = routeMerge({
-    path: 'add',
-    component: add(view),
+    path: `add-${view}`,
+    component: add(view, path),
     name: `add${code(view)}`,
     hidden: true,
     meta: {
@@ -114,8 +120,8 @@ export const routeGenerator = (view, name, data = {}) => {
   }, $add);
 
   const _update = routeMerge({
-    path: 'update/:id?',
-    component: update(view),
+    path: `update-${view}/:id?`,
+    component: update(view, path),
     name: `update${code(view)}`,
     props: true,
     hidden: true,
@@ -127,8 +133,8 @@ export const routeGenerator = (view, name, data = {}) => {
   }, $update);
 
   const _detail = routeMerge({
-    path: 'detail/:id?',
-    component: detail(view),
+    path: `detail-${view}/:id?`,
+    component: detail(view, path),
     name: `detail${code(view)}`,
     props: true,
     hidden: true,
