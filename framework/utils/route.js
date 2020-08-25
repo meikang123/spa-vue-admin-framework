@@ -94,7 +94,7 @@ const routeMerge = (defaultData = {}, data = {}) => {
  *
  * @return RouteConfig
  * */
-export const route = (view, name, data = {}) => {
+export const routeGenerator = (view, name, data = {}) => {
   if (!view || !name) return;
   const { add: $add, update: $update, detail: $detail } = data;
   const defaultMeta = {
