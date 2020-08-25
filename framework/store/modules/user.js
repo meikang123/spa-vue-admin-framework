@@ -1,4 +1,3 @@
-import { authRoutes } from '@/router/index';
 import { Api } from '@/api';
 /*
 * 获取登录信息
@@ -110,7 +109,7 @@ const actions = {
       resolve(state);
     });
   },
-  generateRoutes({ commit, state }) {
+  generateRoutes({ commit, state }, authRoutes) {
     return new Promise((resolve, reject) => {
       const addRoute = filterRoutes(authRoutes, state.roles);
       commit('SET_ROUTES', addRoute);
