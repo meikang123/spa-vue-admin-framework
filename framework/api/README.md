@@ -13,9 +13,19 @@
 利用webpack require.context 扫描当前文件夹以文件名为做namespace, 自动注册到Vue.prototype.$api 变量中, 具体可阅读 /src/api/index.js 实现
  
 ### 开发规范
-* 文件名驼峰，首字母大写
-* export default
-* 注释用jsdoc
+* 1.文件名驼峰，首字母大写
+* 2.使用 export default 导出成员方法
+* 3.curd 用工具方法生成, 
+```javascript
+  import request from '@/utils/request';
+  import { Obj } from '@framework/utils';
+  export default {
+    ...Obj.generateCURD('/case', request);
+    ...
+  }
+```
+
+* 4.注释用jsdoc
 
 #### 示例
 
@@ -38,7 +48,7 @@ export default {
 
 ```
 
-### 使用规范
+### 使用说明举例:
 
 ```javascript
 // 当前Vue 实例内使用
@@ -52,7 +62,7 @@ Api.Case.getList
 
 ```
 
-### 目录结构:
+### 目录结构举例:
 ```javascript
   api
   |-Case.js //业务api

@@ -38,7 +38,6 @@ export default {
       if (meta.activeMenu) {
         return meta.activeMenu;
       }
-      console.log(path, '---path');
       return path;
     },
     showLogo() {

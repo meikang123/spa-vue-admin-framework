@@ -43,14 +43,6 @@ const filterRoutes = (routes, roles) => {
   return res;
 };
 
-
-const state = {
-  token: getToken(),
-  info: {}, // 用户信息
-  roles: null,
-  routes: []
-};
-
 const mutations = {
   CHANGE_USER: (state, info) => {
     state.info = info;
@@ -117,6 +109,13 @@ const actions = {
       resolve(addRoute || []);
     });
   }
+};
+
+const state = {
+  token: getToken(),
+  info: {}, // 用户信息
+  roles: null,
+  routes: []
 };
 
 export default {

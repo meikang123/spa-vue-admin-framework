@@ -26,8 +26,6 @@ export const ResponseStatusCodeEnum = new Enum(
   { alias: 'TOKEN_EXPIRE', text: 'token过期', value: 15012010 },
   { alias: 'TOKEN_PARSE_ERROR', text: 'token信息解析错误', value: 15012008 },
   { alias: 'TOKEN_INVALID', text: '登录令牌无效', value: 15012009 },
-
-
 );
 
 /**
@@ -56,10 +54,11 @@ export const AppEventTypeEnum = new Enum(
   { alias: 'CHECKLOGINFALSE', text: '检查到未登录', value: 'event_login_flase' },
   { alias: 'RE_LOGIN', text: '通知重新登录', value: 'event_re_login' },
 );
+
 /**
  * @description 表单页模式枚举
  */
-export const FormPageModeEnum = new Enum(
+export const FormModeEnum = new Enum(
   { alias: 'ADD', text: '添加', value: 0 },
   { alias: 'UPDATE', text: '修改', value: 1 },
   { alias: 'DETAIL', text: '详情', value: 2 }
