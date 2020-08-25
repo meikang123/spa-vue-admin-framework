@@ -19,16 +19,20 @@
 ### B. 前端静态枚举
  使用 framework/utils/enum 实例化。eg.
  ```javascript
+
+// framework/enums.js
 import { Enum } from '@framework/utils';
+export const FormModeEnum = new Enum(
+  { alias: 'ADD', text: '添加', value: 0 },
+  { alias: 'UPDATE', text: '修改', value: 1 },
+  { alias: 'DETAIL', text: '详情', value: 2 }
+);
 
  ```
 
 
 
-
-
-
-> 前端静态枚举与后端动态枚举将被合并至 Enums (vuex) 中，从而统一使用规范。
+> 前端静态枚举与后端动态枚举将被合并至 Enums (vuex) 中，统一使用。
 
 
 ### 使用场景及规范
@@ -61,7 +65,4 @@ import { Enum } from '@framework/utils';
   },
   ...
 ```
-
-
-
 
