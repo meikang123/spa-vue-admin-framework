@@ -1,5 +1,4 @@
 import { Api } from '@/api';
-import { authRoutes } from '@/router/index';
 /*
 * 获取登录信息
 * */
@@ -41,6 +40,14 @@ const filterRoutes = (routes, roles) => {
   });
 
   return res;
+};
+
+
+const state = {
+  token: getToken(),
+  info: {}, // 用户信息
+  roles: null,
+  routes: []
 };
 
 const mutations = {
@@ -102,20 +109,13 @@ const actions = {
       resolve(state);
     });
   },
-  generateRoutes({ commit, state }) {
+  generateRoutes({ commit, state }, authRoutes) {
     return new Promise((resolve, reject) => {
       const addRoute = filterRoutes(authRoutes, state.roles);
       commit('SET_ROUTES', addRoute);
       resolve(addRoute || []);
     });
   }
-};
-
-const state = {
-  token: getToken(),
-  info: {}, // 用户信息
-  roles: null,
-  routes: []
 };
 
 export default {
