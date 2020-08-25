@@ -104,7 +104,7 @@ export const generateAUDRoute = (view, name, path = '', config = {}) => {
 
   const { add: $add, update: $update, detail: $detail } = config;
   const defaultMeta = {
-    activeMenu: `/${view}/index`,
+    activeMenu: path ? `/${path}` : `/${view}/index`,
     roles: store.state.user.roles || ['admin']
   };
 
