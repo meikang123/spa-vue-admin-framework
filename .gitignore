@@ -2,6 +2,7 @@ project/
 node_modules/
 settings.json
 out/
+publish_temp_/
 package-lock.json
 .DS_Store
 /dist
