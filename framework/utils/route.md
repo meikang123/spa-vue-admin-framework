@@ -4,7 +4,16 @@
 
 ##### 使用场景
 在路由配置项使用、使用此方法生成路由对应路径下要存在FormShop.vue大表单文件。
-生成后路由地址新增-/shop/add-shop、编辑-/shop/update-shop、详情-shop/detail-shop
+
+> 说明
+
+| 字段 | 新增 | 编辑 | 详情 |
+| --- | --- | --- | --- |
+|路由地址|/shop/add-shop|/shop/update-shop|shop/detail-shop|
+|路由name|addShop|updateShop|detailShop|
+
+> 使用方式
+
 ```javascript
 const routes = [{ 
   path: 'shop',
