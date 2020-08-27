@@ -98,13 +98,12 @@ export const generateAUDRoute = (view, name, path = '', config = {}) => {
   if (!view || !name) return;
   if (typeof path !== 'string') {
     config = path;
-    path = '';
+    path = view;
   }
-  path = path || 'FormContainer';
 
   const { add: $add, update: $update, detail: $detail } = config;
   const defaultMeta = {
-    activeMenu: path ? `/${path}` : `/${view}/index`,
+    activeMenu: path !== view ? `/${path}` : `/${view}/index`,
     roles: store.state.user.roles || ['admin']
   };
 
