@@ -45,7 +45,6 @@ const fileDownload = res => {
  */
 const toLogin = (loginUrl, router) => {
   const { location: { href } } = window;
-  window.localStorage.removeItem(APP_AUTH_TOKEN);
   const toUrl = `${loginUrl}?from=[${encodeURIComponent(href)}]`;
   if (!router) {
     window.location.href = toUrl;
@@ -82,7 +81,7 @@ const checkLogin = (route, routeWhiteList) => {
 const toApp = (defaultUrl, token, router) => {
   let appUrl = defaultUrl;
   const { search } = window.location;
-  Cookies.set(APP_AUTH_TOKEN, token);
+  window.localStorage.setItem(APP_AUTH_TOKEN, token);
   const matched = decodeURIComponent(search).match(/from=\[(.*?)\]/);
   if (matched && matched.length === 2) {
     const { 1: matchedUrl } = matched;
