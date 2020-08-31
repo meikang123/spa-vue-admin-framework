@@ -45,7 +45,7 @@ const fileDownload = res => {
  */
 const toLogin = (loginUrl, router) => {
   const { location: { href } } = window;
-  Cookies.remove(APP_AUTH_TOKEN);
+  window.localStorage.removeItem(APP_AUTH_TOKEN);
   const toUrl = `${loginUrl}?from=[${encodeURIComponent(href)}]`;
   if (!router) {
     window.location.href = toUrl;

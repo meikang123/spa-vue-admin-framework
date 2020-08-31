@@ -53,6 +53,8 @@ export const AppEnvTypeEnum = new Enum(
 export const AppEventTypeEnum = new Enum(
   { alias: 'CHECKLOGINFALSE', text: '检查到未登录', value: 'event_login_flase' },
   { alias: 'RE_LOGIN', text: '通知重新登录', value: 'event_re_login' },
+  { alias: 'LOGIN_OUT', text: '退出登录', value: 'event_login_out' },
+  { alias: 'LOGIN_SUCCESS', text: '登录成功', value: 'event_login_success' },
 );
 
 /**

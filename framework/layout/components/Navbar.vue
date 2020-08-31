@@ -42,10 +42,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { EventBus } from '@framework/utils';
+import { AppEventTypeEnum } from '@framework/enums';
 import Breadcrumb from './Breadcrumb';
 import Hamburger from './Hamburger';
 import Screenfull from './Screenfull';
-
 
 export default {
   components: {
@@ -65,8 +66,9 @@ export default {
       this.$store.dispatch('app/toggleSideBar');
     },
     async logout() {
-      await this.$store.dispatch('user/logout');
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+      EventBus.$emit(AppEventTypeEnum.LOGIN_OUT);
+      // await this.$store.dispatch('user/logout');
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`);
     }
   }
 };
