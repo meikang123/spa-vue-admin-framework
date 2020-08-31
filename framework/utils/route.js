@@ -33,7 +33,7 @@ export const update = (view, path) => {
 
     props: {
       id: {
-        type: String | Number,
+        type: [String, Number],
         required: true
       }
     },
@@ -59,7 +59,7 @@ export const detail = (view, path) => {
 
     props: {
       id: {
-        type: String | Number,
+        type: [String, Number],
         required: true
       }
     },
