@@ -4,7 +4,7 @@
     v-bind="$attrs"
     :visible="visible"
     :top="top"
-    :before-close="beforeClose"
+    :before-close="handleClose"
     v-on="$listeners"
   >
     <div slot="title" class="gt-dialog__title">
