@@ -67,8 +67,6 @@ export default {
     },
     async logout() {
       EventBus.$emit(AppEventTypeEnum.LOGIN_OUT);
-      // await this.$store.dispatch('user/logout');
-      // this.$router.push(`/login?redirect=${this.$route.fullPath}`);
     }
   }
 };

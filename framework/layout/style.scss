@@ -67,6 +67,10 @@
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {
+      margin-bottom: 1px;
+      &.is-active{
+        background-color: $menuHover !important;
+      }
       &:hover {
         background-color: $menuHover !important;
       }
