@@ -45,6 +45,7 @@ const fileDownload = res => {
  */
 const toLogin = (loginUrl, router) => {
   const { location: { href } } = window;
+  debugger;
   const toUrl = `${loginUrl}?from=[${encodeURIComponent(href)}]`;
   if (!router) {
     window.location.href = toUrl;
