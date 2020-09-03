@@ -64,7 +64,7 @@ export default {
       // 假如使用visible的sync方法可以不设置
       // 否则需要设置此方法手动关闭dialog
       type: Function,
-      default: () => () => {}
+      default: null
     }
   },
   computed: {
