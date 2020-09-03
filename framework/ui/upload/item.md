@@ -5,7 +5,9 @@ gt-upload-item 图片上传form-item组件
 > 示例代码
 ```
 <template>
-  <gt-upload-item v-model="formData.image" label="商品图片" prop="image" required :is-detail="isDetail" :type-options="typeOptions" />
+  <el-form :model="formData">
+    <gt-upload-item v-model="formData.image" label="商品图片" prop="image" required :is-detail="isDetail" :type-options="typeOptions" />
+  </el-form>
 </template>
 <script>
   export default {
@@ -16,11 +18,11 @@ gt-upload-item 图片上传form-item组件
         },
         typeOptions: {
             action: `/upload`,
-            getRenderList(url) {
+            buildRenderData(url) {
                 if (url) return [{ url: `//${url}` }];
                 return [];
             },
-            setRenderList(data) {
+            renderDataMap(data) {
                 if (data && data.length) {
                     const { url } = data[0];
                     return url.startsWith('//') ? url.substr(2) : url;

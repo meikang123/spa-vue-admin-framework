@@ -6,6 +6,8 @@ import GtConfirm from './confirm';
 import { GtTableTpl, GtTableTplMIXIN } from './template';
 import GtSvgIcon from './_svgicon';
 import GTTinyMce from './tinymce';
+import GtUploadImgItme from './upload/item';
+import GtUploadImg from './upload/image';
 
 export {
   GtFormItem,
@@ -15,7 +17,9 @@ export {
   GtSvgIcon,
   GtTableTpl,
   GTTinyMce,
-  GtTableTplMIXIN
+  GtTableTplMIXIN,
+  GtUploadImgItme,
+  GtUploadImg
 };
 
 const components = [
@@ -25,7 +29,9 @@ const components = [
   GtPagination,
   GtTableTpl,
   GtSvgIcon,
-  GTTinyMce
+  GTTinyMce,
+  GtUploadImgItme,
+  GtUploadImg
 ];
 
 const install = Vue => {
