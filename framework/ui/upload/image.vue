@@ -42,6 +42,7 @@
 
 <script>
 export default {
+  name: 'GtUploadImg',
   model: {
     prop: 'value',
     event: 'input'

@@ -11,6 +11,7 @@
 import UploadImg from './image';
 
 export default {
+  name: 'GtUploadImgItem',
   components: {
     UploadImg
   },
