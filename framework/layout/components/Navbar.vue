@@ -10,6 +10,7 @@
     <div class="right-menu">
       <slot />
       <template v-if="device!=='mobile'">
+        <ProjectView class="right-menu-item hover-effect" title="项目助手" />
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
         <!--
         <el-tooltip content="全局大小" effect="dark" placement="bottom">
@@ -47,12 +48,14 @@ import { AppEventTypeEnum } from '@framework/enums';
 import Breadcrumb from './Breadcrumb';
 import Hamburger from './Hamburger';
 import Screenfull from './Screenfull';
+import ProjectView from './ProjectView';
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
-    Screenfull
+    Screenfull,
+    ProjectView
   },
   computed: {
     ...mapGetters([
