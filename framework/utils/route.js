@@ -9,7 +9,7 @@ const code = str => (str.slice(0, 1).toLocaleUpperCase() + str.slice(1));
  * @description 添加新增路由
  * */
 export const add = (view, path) => {
-  const Component = () => import(`@/views/${path}/Form${code(view)}`);
+  const Component = () => import(/* webpackChunkName: 'AUD' */ `@/views/${path}/Form${code(view)}`);
   return ({
     name: `add${code(view)}`,
 
@@ -27,7 +27,7 @@ export const add = (view, path) => {
  * @description 添加更新路由
  * */
 export const update = (view, path) => {
-  const Component = () => import(`@/views/${path}/Form${code(view)}`);
+  const Component = () => import(/* webpackChunkName: 'AUD' */ `@/views/${path}/Form${code(view)}`);
   return ({
     name: `update${code(view)}`,
 
@@ -53,7 +53,7 @@ export const update = (view, path) => {
  * @description 添加详情路由
  * */
 export const detail = (view, path) => {
-  const Component = () => import(`@/views/${path}/Form${code(view)}`);
+  const Component = () => import(/* webpackChunkName: 'AUD' */ `@/views/${path}/Form${code(view)}`);
   return ({
     name: `detail${code(view)}`,
 
