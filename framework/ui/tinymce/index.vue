@@ -1,5 +1,7 @@
 <template>
-  <div :class="{fullscreen:fullscreen}" class="gt-tinymce-container" :style="{width:containerWidth}" :id="tinymceWrapId" />
+  <div :style="{width:containerWidth}" v-show="hasInit">
+    <textarea class="tinymce-textarea" :id="tinymceId" />
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,7 @@ import { Browser } from '@framework/utils';
 
 const tinymceCDN = `${THIRDPARTY_PATH}/tinymce/tinymce.min.js`;
 const generateId = type => `vue-tinymce-${type}-${+new Date()}${(Math.random() * 1000).toFixed(0)}`;
+
 export default {
   name: 'gt-tinymce',
   props: {
@@ -23,7 +26,7 @@ export default {
       type: Array,
       required: false,
       default() {
-        return [];
+        return ['undo redo | fontsizeselect | fontselect | formatselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent | table tabledelete | bullist numlist | emoticons link image | code | removeformat'];
       }
     },
     menubar: {
@@ -45,13 +48,11 @@ export default {
     return {
       hasChange: false,
       hasInit: false,
-      tinymceId: this.id,
-      tinymceWrapId: '',
-      fullscreen: false
+      tinymceId: ''
     };
   },
   created() {
-    this.tinymceWrapId = generateId('wrap');
+    this.tinymceId = this.id || generateId('mce');
   },
   computed: {
     containerWidth() {
@@ -92,35 +93,33 @@ export default {
     },
 
     initTinymce() {
-      document.getElementById(this.tinymceWrapId).innerHTML = '';
-      this.tinymceId = generateId('mce');
-      document.getElementById(this.tinymceWrapId).innerHTML = `
-        <textarea id=${this.tinymceId} />
-      `;
-      
       const _this = this;
       window.tinymce.init({
-        branding: false,
-        elementpath: false,
-        language: 'zh_CN',
-        statusbar: false,
         selector: `#${this.tinymceId}`,
         width: this.width,
         height: this.height,
-        body_class: 'panel-body ',
+        branding: false, // 隐藏右下角技术支持
+        elementpath: false, // 隐藏底部的元素路径
+        statusbar: false, // 隐藏状态栏
+        content_style: 'p {margin: 2px 0px; }', // 调整输入框间距--这块很重要， 在最后呈现的页面也要写入这个基本样式保证前后一致
+        language: 'zh_CN',
+        toolbar: this.toolbar, // 自定义工具栏
+        menubar: this.menubar, // 1级菜单
+        plugins: 'table, lists, advlist,emoticons,autolink,code,link,image',
+        advlist_bullet_styles: 'circle,square,disc', // toolbar的-bullist选项
+        advlist_number_styles: 'default,lower-alpha,lower-greek,lower-roman,upper-alpha,upper-roman', // toolbar的-numlist选项
+        font_formats: '微软雅黑=Microsoft YaHei;宋体=SimSun;黑体=SimHei;仿宋=FangSong;楷体=KaiTi;隶书=LiSu;幼圆=YouYuan;Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings',
+        fontsize_formats: '11px 12px 14px 16px 18px 24px 36px 48px',
+        end_container_on_empty_block: true, // 空元素回车将其拆分
         object_resizing: false,
-        // toolbar: this.toolbar,
-        menubar: this.menubar,
-        plugins: 'advlist,autolink,code,paste,textcolor, colorpicker,fullscreen,link,lists,media, imagetools',
-        end_container_on_empty_block: true,
-        powerpaste_word_import: 'clean',
-        advlist_bullet_styles: 'square',
-        advlist_number_styles: 'default',
-        imagetools_cors_hosts: ['wpimg.wallstcn.com', 'wallstreetcn.com'],
-        imagetools_toolbar: 'watermark',
-        default_link_target: '_blank',
-        link_title: false,
-        init_instance_callback: editor => {
+        default_link_target: '_blank', // 链接默认打开方式
+        link_title: false, // 是否允许禁用链接对话框中的链接标题输入字段
+
+        // imagetools_cors_hosts: ['wpimg.wallstcn.com', 'wallstreetcn.com'], //  指定跨域地址
+        // powerpaste_word_import: 'clean', // 此设置控制如何筛选从Microsoft Word粘贴的内容
+        // imagetools_toolbar: 'watermark', // 图片控制的工具栏
+
+        init_instance_callback: editor => { // 初始化编辑器实例时要执行的函数
           if (_this.value) {
             editor.setContent(_this.value);
           }
@@ -129,6 +128,7 @@ export default {
             this.hasChange = true;
             this.$emit('input', editor.getContent({ format: 'raw' }));
           });
+          if (editor.hidden) editor.show();
         }
       });
     },
@@ -150,17 +150,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.gt-tinymce-container {
-  position: relative;
-  line-height: normal;
-}
-.tinymce-container>>>.mce-fullscreen {
-  z-index: 10000;
-}
-.tinymce-textarea {
-  visibility: hidden;
-  z-index: -1;
-}
-</style>
