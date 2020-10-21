@@ -113,7 +113,7 @@ export const generateAUDRoute = (view, name, path = '', config = {}) => {
     name: `add${code(view)}`,
     hidden: true,
     meta: {
-      title: `增加${name}`,
+      title: `创建${name}`,
       ...defaultMeta
     }
   }, $add);
